@@ -1,1 +1,107 @@
-{"nav":{"explore":"Khám phá","seller":"Mở gian hàng","login":"Đăng nhập","cart":"Giỏ hàng"},"home":{"eyebrow":"Chợ tuyển chọn · Made in Vietnam","title":"Điều hay từ Việt Nam,\ngặp người cần nó.","description":"Từ món ngon quê nhà đến những sáng tạo số độc đáo. Khám phá sản phẩm có câu chuyện và gặp người làm ra chúng.","explore":"Khám phá sản phẩm","seller":"Bắt đầu bán hàng","featured":"Được yêu thích tuần này","categories":"Khám phá theo danh mục","physical":"Gửi đến tận nhà","digital":"Tải xuống tức thì","promise":"Một nơi cho những điều đáng giữ lại","promiseText":"Munbase kết nối nhà sáng tạo và người mua bằng trải nghiệm mua bán đơn giản, minh bạch.","viewAll":"Xem tất cả","search":"Bạn đang tìm điều gì?","searchButton":"Tìm kiếm"},"products":{"title":"Khám phá sản phẩm","subtitle":"Những sản phẩm được tuyển chọn từ các gian hàng độc lập.","all":"Tất cả","physical":"Hàng vật lý","digital":"Sản phẩm số","sort":"Nổi bật","add":"Thêm vào giỏ","details":"Xem sản phẩm"},"cart":{"title":"Giỏ hàng của bạn","empty":"Giỏ hàng đang trống","shop":"Khám phá sản phẩm","checkout":"Tiến hành thanh toán"},"checkout":{"title":"Thanh toán","login":"Đăng nhập để tiếp tục đặt hàng.","cod":"Thanh toán khi nhận hàng","payos":"Chuyển khoản ngân hàng qua PayOS","sepay":"Quét QR chuyển khoản qua SePay","submit":"Tạo đơn hàng","scanQr":"Quét mã QR để thanh toán","transferExactAmount":"Chuyển đúng số tiền này đến tài khoản trong mã QR.","transferReference":"Nội dung chuyển khoản:","accountHolder":"Chủ tài khoản","waitingPayment":"Đang chờ giao dịch ngân hàng… Trạng thái đơn sẽ tự cập nhật."},"dashboard":{"title":"Không gian người bán","subtitle":"Quản lý cửa hàng và theo dõi đơn hàng của bạn.","products":"Sản phẩm","orders":"Đơn hàng","payouts":"Đối soát","apply":"Gửi yêu cầu mở gian hàng"},"admin":{"title":"Quản trị Munbase","subtitle":"Duyệt gian hàng, theo dõi đơn và đối soát người bán."}}
+{
+  "nav": {
+    "explore": "Khám phá",
+    "seller": "Mở gian hàng",
+    "login": "Đăng nhập",
+    "cart": "Giỏ hàng"
+  },
+  "home": {
+    "eyebrow": "Chợ tuyển chọn · Made in Vietnam",
+    "title": "Điều hay từ Việt Nam,\ngặp người cần nó.",
+    "description": "Từ món ngon quê nhà đến những sáng tạo số độc đáo. Khám phá sản phẩm có câu chuyện và gặp người làm ra chúng.",
+    "explore": "Khám phá sản phẩm",
+    "seller": "Bắt đầu bán hàng",
+    "featured": "Được yêu thích tuần này",
+    "categories": "Khám phá theo danh mục",
+    "physical": "Gửi đến tận nhà",
+    "digital": "Tải xuống tức thì",
+    "promise": "Một nơi cho những điều đáng giữ lại",
+    "promiseText": "Munbase kết nối nhà sáng tạo và người mua bằng trải nghiệm mua bán đơn giản, minh bạch.",
+    "viewAll": "Xem tất cả",
+    "search": "Bạn đang tìm điều gì?",
+    "searchButton": "Tìm kiếm"
+  },
+  "products": {
+    "title": "Khám phá sản phẩm",
+    "subtitle": "Những sản phẩm được tuyển chọn từ các gian hàng độc lập.",
+    "all": "Tất cả",
+    "physical": "Hàng vật lý",
+    "digital": "Sản phẩm số",
+    "sort": "Nổi bật",
+    "add": "Thêm vào giỏ",
+    "details": "Xem sản phẩm"
+  },
+  "cart": {
+    "title": "Giỏ hàng của bạn",
+    "empty": "Giỏ hàng đang trống",
+    "shop": "Khám phá sản phẩm",
+    "checkout": "Tiến hành thanh toán",
+    "unavailable": "Một số sản phẩm trong giỏ không còn khả dụng.",
+    "removeUnavailable": "Xóa sản phẩm không còn bán",
+    "quantity": "Số lượng",
+    "subtotal": "Tạm tính"
+  },
+  "checkout": {
+    "title": "Thanh toán",
+    "login": "Đăng nhập để tiếp tục đặt hàng.",
+    "cod": "Thanh toán khi nhận hàng",
+    "payos": "Chuyển khoản ngân hàng qua PayOS",
+    "sepay": "Quét QR chuyển khoản qua SePay",
+    "submit": "Tạo đơn hàng",
+    "scanQr": "Quét mã QR để thanh toán",
+    "transferExactAmount": "Chuyển đúng số tiền này đến tài khoản trong mã QR.",
+    "transferReference": "Nội dung chuyển khoản:",
+    "accountHolder": "Chủ tài khoản",
+    "waitingPayment": "Đang chờ giao dịch ngân hàng… Trạng thái đơn sẽ tự cập nhật.",
+    "emptyCart": "Giỏ hàng đang trống.",
+    "shop": "Khám phá sản phẩm",
+    "unavailable": "Một số sản phẩm trong giỏ không còn khả dụng.",
+    "removeUnavailable": "Xóa sản phẩm không còn bán",
+    "serverRechecks": "Máy chủ sẽ xác nhận lại giá, tồn kho và phí giao hàng trước khi tạo đơn.",
+    "name": "Họ tên",
+    "email": "Email nhận biên nhận",
+    "phone": "Số điện thoại",
+    "address": "Địa chỉ giao hàng",
+    "paymentMethod": "Phương thức thanh toán",
+    "itemsSubtotal": "Tiền hàng",
+    "shippingEstimate": "Phí giao hàng ({sellers} gian hàng)",
+    "estimatedTotal": "Tổng dự kiến"
+  },
+  "dashboard": {
+    "title": "Không gian người bán",
+    "subtitle": "Quản lý cửa hàng và theo dõi đơn hàng của bạn.",
+    "products": "Sản phẩm",
+    "orders": "Đơn hàng",
+    "payouts": "Đối soát",
+    "apply": "Gửi yêu cầu mở gian hàng"
+  },
+  "admin": {
+    "title": "Quản trị Munbase",
+    "subtitle": "Duyệt gian hàng, theo dõi đơn và đối soát người bán."
+  },
+  "auth": {
+    "eyebrow": "Tài khoản Munbase",
+    "title": "Chào mừng bạn trở lại",
+    "description": "Đăng nhập để đặt hàng, tải sản phẩm số và quản lý gian hàng.",
+    "fullName": "Họ và tên",
+    "email": "Email",
+    "password": "Mật khẩu (ít nhất 8 ký tự)",
+    "signIn": "Đăng nhập",
+    "create": "Tạo tài khoản",
+    "google": "Tiếp tục với Google",
+    "createBuyer": "Tạo tài khoản người mua",
+    "existing": "Đã có tài khoản? Đăng nhập",
+    "checkEmail": "Kiểm tra email để xác nhận tài khoản.",
+    "notConfigured": "Chưa cấu hình kết nối Supabase.",
+    "continue": "Đang xử lý…"
+  },
+  "sellerForm": {
+    "shop": "Tên gian hàng",
+    "phone": "Số điện thoại liên hệ",
+    "description": "Bạn dự định bán sản phẩm nào?",
+    "submit": "Gửi yêu cầu mở gian hàng",
+    "pending": "Yêu cầu của bạn đang chờ quản trị viên duyệt.",
+    "signInAgain": "Vui lòng đăng nhập lại.",
+    "notConfigured": "Chưa cấu hình kết nối Supabase."
+  }
+}

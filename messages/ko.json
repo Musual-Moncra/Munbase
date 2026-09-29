@@ -1,1 +1,107 @@
-{"nav":{"explore":"둘러보기","seller":"상점 열기","login":"로그인","cart":"장바구니"},"home":{"eyebrow":"엄선된 마켓 · 베트남에서 만들다","title":"베트남의 좋은 것들,\n필요한 사람을 만나다.","description":"고향의 별미부터 독창적인 디지털 창작물까지. 이야기가 있는 제품과 만드는 사람을 만나보세요.","explore":"상품 둘러보기","seller":"판매 시작하기","featured":"이번 주 인기 상품","categories":"카테고리별 쇼핑","physical":"집까지 배송","digital":"즉시 다운로드","promise":"간직할 가치가 있는 것들의 공간","promiseText":"Munbase는 독립 창작자와 구매자를 간단하고 투명한 거래 경험으로 연결합니다.","viewAll":"모두 보기","search":"무엇을 찾고 계신가요?","searchButton":"검색"},"products":{"title":"상품 둘러보기","subtitle":"독립 상점의 엄선된 상품.","all":"전체","physical":"실물 상품","digital":"디지털 상품","sort":"추천","add":"장바구니 담기","details":"상품 보기"},"cart":{"title":"장바구니","empty":"장바구니가 비어 있습니다","shop":"상품 둘러보기","checkout":"결제하기"},"checkout":{"title":"결제","login":"주문하려면 로그인하세요.","cod":"착불 결제","payos":"PayOS 계좌이체","sepay":"SePay QR 계좌이체","submit":"주문 생성","scanQr":"QR 코드를 스캔하여 결제하세요","transferExactAmount":"QR 코드에 표시된 계좌로 정확한 금액을 송금하세요.","transferReference":"이체 메모:","accountHolder":"예금주","waitingPayment":"은행 송금을 기다리는 중… 주문 상태가 자동으로 업데이트됩니다."},"dashboard":{"title":"판매자 공간","subtitle":"상점과 주문을 관리하세요.","products":"상품","orders":"주문","payouts":"정산","apply":"상점 개설 신청"},"admin":{"title":"Munbase 관리","subtitle":"상점 심사, 주문 모니터링 및 정산 관리."}}
+{
+  "nav": {
+    "explore": "둘러보기",
+    "seller": "상점 열기",
+    "login": "로그인",
+    "cart": "장바구니"
+  },
+  "home": {
+    "eyebrow": "엄선된 마켓 · 베트남에서 만들다",
+    "title": "베트남의 좋은 것들,\n필요한 사람을 만나다.",
+    "description": "고향의 별미부터 독창적인 디지털 창작물까지. 이야기가 있는 제품과 만드는 사람을 만나보세요.",
+    "explore": "상품 둘러보기",
+    "seller": "판매 시작하기",
+    "featured": "이번 주 인기 상품",
+    "categories": "카테고리별 쇼핑",
+    "physical": "집까지 배송",
+    "digital": "즉시 다운로드",
+    "promise": "간직할 가치가 있는 것들의 공간",
+    "promiseText": "Munbase는 독립 창작자와 구매자를 간단하고 투명한 거래 경험으로 연결합니다.",
+    "viewAll": "모두 보기",
+    "search": "무엇을 찾고 계신가요?",
+    "searchButton": "검색"
+  },
+  "products": {
+    "title": "상품 둘러보기",
+    "subtitle": "독립 상점의 엄선된 상품.",
+    "all": "전체",
+    "physical": "실물 상품",
+    "digital": "디지털 상품",
+    "sort": "추천",
+    "add": "장바구니 담기",
+    "details": "상품 보기"
+  },
+  "cart": {
+    "title": "장바구니",
+    "empty": "장바구니가 비어 있습니다",
+    "shop": "상품 둘러보기",
+    "checkout": "결제하기",
+    "unavailable": "장바구니의 일부 상품을 더 이상 구매할 수 없습니다.",
+    "removeUnavailable": "구매할 수 없는 상품 삭제",
+    "quantity": "수량",
+    "subtotal": "상품 합계"
+  },
+  "checkout": {
+    "title": "결제",
+    "login": "주문하려면 로그인하세요.",
+    "cod": "착불 결제",
+    "payos": "PayOS 계좌이체",
+    "sepay": "SePay QR 계좌이체",
+    "submit": "주문 생성",
+    "scanQr": "QR 코드를 스캔하여 결제하세요",
+    "transferExactAmount": "QR 코드에 표시된 계좌로 정확한 금액을 송금하세요.",
+    "transferReference": "이체 메모:",
+    "accountHolder": "예금주",
+    "waitingPayment": "은행 송금을 기다리는 중… 주문 상태가 자동으로 업데이트됩니다.",
+    "emptyCart": "장바구니가 비어 있습니다.",
+    "shop": "상품 둘러보기",
+    "unavailable": "장바구니의 일부 상품을 더 이상 구매할 수 없습니다.",
+    "removeUnavailable": "구매할 수 없는 상품 삭제",
+    "serverRechecks": "주문 생성 전에 서버가 현재 가격, 재고 및 배송비를 다시 확인합니다.",
+    "name": "성명",
+    "email": "영수증 이메일",
+    "phone": "전화번호",
+    "address": "배송 주소",
+    "paymentMethod": "결제 방법",
+    "itemsSubtotal": "상품 합계",
+    "shippingEstimate": "배송비 ({sellers}개 상점)",
+    "estimatedTotal": "예상 총액"
+  },
+  "dashboard": {
+    "title": "판매자 공간",
+    "subtitle": "상점과 주문을 관리하세요.",
+    "products": "상품",
+    "orders": "주문",
+    "payouts": "정산",
+    "apply": "상점 개설 신청"
+  },
+  "admin": {
+    "title": "Munbase 관리",
+    "subtitle": "상점 심사, 주문 모니터링 및 정산 관리."
+  },
+  "auth": {
+    "eyebrow": "Munbase 계정",
+    "title": "다시 오신 것을 환영합니다",
+    "description": "주문, 디지털 상품 다운로드, 상점 관리를 위해 로그인하세요.",
+    "fullName": "이름",
+    "email": "이메일",
+    "password": "비밀번호 (8자 이상)",
+    "signIn": "로그인",
+    "create": "계정 만들기",
+    "google": "Google로 계속하기",
+    "createBuyer": "구매자 계정 만들기",
+    "existing": "이미 계정이 있나요? 로그인",
+    "checkEmail": "이메일을 확인하여 계정을 인증하세요.",
+    "notConfigured": "Supabase 연결이 설정되지 않았습니다.",
+    "continue": "처리 중…"
+  },
+  "sellerForm": {
+    "shop": "상점 이름",
+    "phone": "연락처 전화번호",
+    "description": "판매할 상품을 설명해 주세요.",
+    "submit": "상점 개설 신청",
+    "pending": "신청이 관리자 검토를 기다리고 있습니다.",
+    "signInAgain": "다시 로그인해 주세요.",
+    "notConfigured": "Supabase 연결이 설정되지 않았습니다."
+  }
+}

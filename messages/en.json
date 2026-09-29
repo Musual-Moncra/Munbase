@@ -1,1 +1,107 @@
-{"nav":{"explore":"Explore","seller":"Open a shop","login":"Sign in","cart":"Cart"},"home":{"eyebrow":"A curated market · Made in Vietnam","title":"Good things from Vietnam,\nfind their people.","description":"From hometown specialties to original digital creations. Discover products with a story and meet the people who make them.","explore":"Explore products","seller":"Start selling","featured":"Loved this week","categories":"Shop by category","physical":"Ships to your door","digital":"Instant download","promise":"A home for things worth keeping","promiseText":"Munbase connects independent makers and buyers through a simple, transparent marketplace.","viewAll":"View all","search":"What are you looking for?","searchButton":"Search"},"products":{"title":"Explore products","subtitle":"Thoughtfully selected goods from independent shops.","all":"All","physical":"Physical goods","digital":"Digital goods","sort":"Featured","add":"Add to cart","details":"View product"},"cart":{"title":"Your cart","empty":"Your cart is empty","shop":"Explore products","checkout":"Proceed to checkout"},"checkout":{"title":"Checkout","login":"Sign in to place your order.","cod":"Cash on delivery","payos":"Bank transfer with PayOS","sepay":"Bank transfer with SePay QR","submit":"Create order","scanQr":"Scan this QR code to pay","transferExactAmount":"Transfer exactly this amount to the account shown in the QR code.","transferReference":"Transfer reference:","accountHolder":"Account holder","waitingPayment":"Waiting for your bank transfer… The order status updates automatically."},"dashboard":{"title":"Seller space","subtitle":"Manage your shop and keep track of orders.","products":"Products","orders":"Orders","payouts":"Reconciliation","apply":"Apply to open a shop"},"admin":{"title":"Munbase admin","subtitle":"Review shops, monitor orders and reconcile seller balances."}}
+{
+  "nav": {
+    "explore": "Explore",
+    "seller": "Open a shop",
+    "login": "Sign in",
+    "cart": "Cart"
+  },
+  "home": {
+    "eyebrow": "A curated market · Made in Vietnam",
+    "title": "Good things from Vietnam,\nfind their people.",
+    "description": "From hometown specialties to original digital creations. Discover products with a story and meet the people who make them.",
+    "explore": "Explore products",
+    "seller": "Start selling",
+    "featured": "Loved this week",
+    "categories": "Shop by category",
+    "physical": "Ships to your door",
+    "digital": "Instant download",
+    "promise": "A home for things worth keeping",
+    "promiseText": "Munbase connects independent makers and buyers through a simple, transparent marketplace.",
+    "viewAll": "View all",
+    "search": "What are you looking for?",
+    "searchButton": "Search"
+  },
+  "products": {
+    "title": "Explore products",
+    "subtitle": "Thoughtfully selected goods from independent shops.",
+    "all": "All",
+    "physical": "Physical goods",
+    "digital": "Digital goods",
+    "sort": "Featured",
+    "add": "Add to cart",
+    "details": "View product"
+  },
+  "cart": {
+    "title": "Your cart",
+    "empty": "Your cart is empty",
+    "shop": "Explore products",
+    "checkout": "Proceed to checkout",
+    "unavailable": "Some items in your cart are no longer available.",
+    "removeUnavailable": "Remove unavailable items",
+    "quantity": "Quantity",
+    "subtotal": "Subtotal"
+  },
+  "checkout": {
+    "title": "Checkout",
+    "login": "Sign in to place your order.",
+    "cod": "Cash on delivery",
+    "payos": "Bank transfer with PayOS",
+    "sepay": "Bank transfer with SePay QR",
+    "submit": "Create order",
+    "scanQr": "Scan this QR code to pay",
+    "transferExactAmount": "Transfer exactly this amount to the account shown in the QR code.",
+    "transferReference": "Transfer reference:",
+    "accountHolder": "Account holder",
+    "waitingPayment": "Waiting for your bank transfer… The order status updates automatically.",
+    "emptyCart": "Your cart is empty.",
+    "shop": "Explore products",
+    "unavailable": "Some items in your cart are no longer available.",
+    "removeUnavailable": "Remove unavailable items",
+    "serverRechecks": "The server checks current prices, stock and shipping before creating your order.",
+    "name": "Full name",
+    "email": "Receipt email",
+    "phone": "Phone number",
+    "address": "Shipping address",
+    "paymentMethod": "Payment method",
+    "itemsSubtotal": "Items subtotal",
+    "shippingEstimate": "Shipping ({sellers} sellers)",
+    "estimatedTotal": "Estimated total"
+  },
+  "dashboard": {
+    "title": "Seller space",
+    "subtitle": "Manage your shop and keep track of orders.",
+    "products": "Products",
+    "orders": "Orders",
+    "payouts": "Reconciliation",
+    "apply": "Apply to open a shop"
+  },
+  "admin": {
+    "title": "Munbase admin",
+    "subtitle": "Review shops, monitor orders and reconcile seller balances."
+  },
+  "auth": {
+    "eyebrow": "Munbase account",
+    "title": "Welcome back",
+    "description": "Sign in to place orders, download digital goods and manage your shop.",
+    "fullName": "Full name",
+    "email": "Email",
+    "password": "Password (at least 8 characters)",
+    "signIn": "Sign in",
+    "create": "Create account",
+    "google": "Continue with Google",
+    "createBuyer": "Create a buyer account",
+    "existing": "Already have an account? Sign in",
+    "checkEmail": "Check your email to confirm your account.",
+    "notConfigured": "Supabase connection is not configured.",
+    "continue": "Working…"
+  },
+  "sellerForm": {
+    "shop": "Shop name",
+    "phone": "Contact phone",
+    "description": "What do you plan to sell?",
+    "submit": "Apply to open a shop",
+    "pending": "Your application is waiting for admin review.",
+    "signInAgain": "Please sign in again.",
+    "notConfigured": "Supabase connection is not configured."
+  }
+}

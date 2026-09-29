@@ -1,2 +1,3 @@
 import {AuthForm} from '@/components/auth-form';
-export default function LoginPage(){return <main className="shell page-main"><span className="eyebrow">Munbase account</span><h1 className="page-title">Welcome back</h1><p className="muted">Sign in to place orders, download digital goods and manage your shop.</p><AuthForm/></main>;}
+import {getTranslations} from 'next-intl/server';
+export default async function LoginPage(){const t=await getTranslations('auth');return <main className="shell page-main"><span className="eyebrow">{t('eyebrow')}</span><h1 className="page-title">{t('title')}</h1><p className="muted">{t('description')}</p><AuthForm/></main>;}

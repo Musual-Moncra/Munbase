@@ -1,4 +1,4 @@
-export type Product = {id:string; title:string; seller:string; price:number; type:'physical'|'digital'; mark:string; color:string; category:string; slug:string; preview?:boolean; image?:string};
+export type Product = {id:string; sellerId?:string; title:string; seller:string; price:number; type:'physical'|'digital'; mark:string; color:string; category:string; slug:string; preview?:boolean; image?:string; stockQuantity?:number};
 export const products: Product[] = [
   {id:'p1',title:'Trà sen Tây Hồ',seller:'Nhà Trà An Nhiên',price:185000,type:'physical',mark:'Trà sen',color:'linear-gradient(145deg,#c4b482,#647857)',category:'Đặc sản',slug:'tra-sen-tay-ho'},
   {id:'p2',title:'Bộ preset Sương Mai',seller:'Linh Studio',price:249000,type:'digital',mark:'Preset',color:'linear-gradient(145deg,#dfa986,#935c48)',category:'Sáng tạo số',slug:'bo-preset-suong-mai'},

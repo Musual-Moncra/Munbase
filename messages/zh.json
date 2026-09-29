@@ -1,1 +1,107 @@
-{"nav":{"explore":"探索","seller":"开设店铺","login":"登录","cart":"购物车"},"home":{"eyebrow":"精选市集 · 越南制造","title":"越南好物，\n遇见需要它的人。","description":"从家乡风味到独特的数字创作。发现有故事的商品，认识创造它们的人。","explore":"探索商品","seller":"开始销售","featured":"本周人气","categories":"按类别探索","physical":"送货上门","digital":"即时下载","promise":"珍藏好物的地方","promiseText":"Munbase 通过简单透明的购物体验连接独立创作者与买家。","viewAll":"查看全部","search":"你在寻找什么？","searchButton":"搜索"},"products":{"title":"探索商品","subtitle":"来自独立店铺的精选好物。","all":"全部","physical":"实体商品","digital":"数字商品","sort":"精选","add":"加入购物车","details":"查看商品"},"cart":{"title":"购物车","empty":"购物车为空","shop":"探索商品","checkout":"前往结账"},"checkout":{"title":"结账","login":"登录后即可下单。","cod":"货到付款","payos":"PayOS 银行转账","sepay":"SePay 银行二维码转账","submit":"创建订单","scanQr":"扫描二维码付款","transferExactAmount":"请向二维码中的账户转入准确金额。","transferReference":"转账备注：","accountHolder":"账户持有人","waitingPayment":"正在等待银行转账…订单状态会自动更新。"},"dashboard":{"title":"卖家中心","subtitle":"管理店铺并跟踪订单。","products":"商品","orders":"订单","payouts":"对账","apply":"申请开设店铺"},"admin":{"title":"Munbase 管理","subtitle":"审核店铺、跟踪订单并核对卖家款项。"}}
+{
+  "nav": {
+    "explore": "探索",
+    "seller": "开设店铺",
+    "login": "登录",
+    "cart": "购物车"
+  },
+  "home": {
+    "eyebrow": "精选市集 · 越南制造",
+    "title": "越南好物，\n遇见需要它的人。",
+    "description": "从家乡风味到独特的数字创作。发现有故事的商品，认识创造它们的人。",
+    "explore": "探索商品",
+    "seller": "开始销售",
+    "featured": "本周人气",
+    "categories": "按类别探索",
+    "physical": "送货上门",
+    "digital": "即时下载",
+    "promise": "珍藏好物的地方",
+    "promiseText": "Munbase 通过简单透明的购物体验连接独立创作者与买家。",
+    "viewAll": "查看全部",
+    "search": "你在寻找什么？",
+    "searchButton": "搜索"
+  },
+  "products": {
+    "title": "探索商品",
+    "subtitle": "来自独立店铺的精选好物。",
+    "all": "全部",
+    "physical": "实体商品",
+    "digital": "数字商品",
+    "sort": "精选",
+    "add": "加入购物车",
+    "details": "查看商品"
+  },
+  "cart": {
+    "title": "购物车",
+    "empty": "购物车为空",
+    "shop": "探索商品",
+    "checkout": "前往结账",
+    "unavailable": "购物车中的部分商品已无法购买。",
+    "removeUnavailable": "移除无法购买的商品",
+    "quantity": "数量",
+    "subtotal": "商品小计"
+  },
+  "checkout": {
+    "title": "结账",
+    "login": "登录后即可下单。",
+    "cod": "货到付款",
+    "payos": "PayOS 银行转账",
+    "sepay": "SePay 银行二维码转账",
+    "submit": "创建订单",
+    "scanQr": "扫描二维码付款",
+    "transferExactAmount": "请向二维码中的账户转入准确金额。",
+    "transferReference": "转账备注：",
+    "accountHolder": "账户持有人",
+    "waitingPayment": "正在等待银行转账…订单状态会自动更新。",
+    "emptyCart": "购物车为空。",
+    "shop": "探索商品",
+    "unavailable": "购物车中的部分商品已无法购买。",
+    "removeUnavailable": "移除无法购买的商品",
+    "serverRechecks": "创建订单前，服务器会重新核对价格、库存和运费。",
+    "name": "姓名",
+    "email": "收据邮箱",
+    "phone": "电话号码",
+    "address": "收货地址",
+    "paymentMethod": "付款方式",
+    "itemsSubtotal": "商品小计",
+    "shippingEstimate": "运费（{sellers} 家店铺）",
+    "estimatedTotal": "预计总额"
+  },
+  "dashboard": {
+    "title": "卖家中心",
+    "subtitle": "管理店铺并跟踪订单。",
+    "products": "商品",
+    "orders": "订单",
+    "payouts": "对账",
+    "apply": "申请开设店铺"
+  },
+  "admin": {
+    "title": "Munbase 管理",
+    "subtitle": "审核店铺、跟踪订单并核对卖家款项。"
+  },
+  "auth": {
+    "eyebrow": "Munbase 账户",
+    "title": "欢迎回来",
+    "description": "登录以购物、下载数字商品并管理店铺。",
+    "fullName": "姓名",
+    "email": "电子邮箱",
+    "password": "密码（至少 8 个字符）",
+    "signIn": "登录",
+    "create": "创建账户",
+    "google": "使用 Google 继续",
+    "createBuyer": "创建买家账户",
+    "existing": "已有账户？登录",
+    "checkEmail": "请检查邮箱并确认账户。",
+    "notConfigured": "尚未配置 Supabase 连接。",
+    "continue": "处理中…"
+  },
+  "sellerForm": {
+    "shop": "店铺名称",
+    "phone": "联系电话",
+    "description": "请介绍计划销售的商品。",
+    "submit": "申请开设店铺",
+    "pending": "申请正在等待管理员审核。",
+    "signInAgain": "请重新登录。",
+    "notConfigured": "尚未配置 Supabase 连接。"
+  }
+}

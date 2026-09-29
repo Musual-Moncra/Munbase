@@ -1,6 +1,6 @@
 # Munbase Marketplace
 
-Munbase is a multilingual marketplace MVP for independent sellers of physical and digital products. It uses Next.js 16 App Router, Supabase Auth/Postgres/Storage, `next-intl`, PayOS and Resend.
+Munbase is a multilingual marketplace MVP for independent sellers of physical and digital products. It uses Next.js 16 App Router, Supabase Auth/Postgres/Storage, `next-intl`, SePay, optional PayOS and Resend.
 
 ## Local development
 
@@ -22,9 +22,12 @@ The locale routes are `/vi`, `/en`, `/ko`, `/zh` and `/ja`. If the database has 
   ```
 
   Admin roles cannot be granted from the registration form. Admins approve seller applications from `/[locale]/admin`.
-- Configure `PAYOS_CLIENT_ID`, `PAYOS_API_KEY`, `PAYOS_CHECKSUM_KEY`, then register `https://<host>/api/webhooks/payos` in PayOS. The webhook verifies signatures and checks order code and amount before marking an order paid.
+- Configure SePay's receiving `SEPAY_BANK_ACCOUNT`, bank identifier `SEPAY_BANK_CODE` (for example `TPBank`), and `SEPAY_ACCOUNT_NAME`. The order page creates a dynamic QR with amount and `MB<order-code>` reference.
+- Register `https://<host>/api/webhooks/sepay` in SePay for incoming transfers. Choose HMAC-SHA256, store the generated secret as `SEPAY_WEBHOOK_SECRET`, and configure payment-code prefix `MB`. Configure the same receiving account in both SePay and `SEPAY_BANK_ACCOUNT`. The webhook verifies the raw-body signature and timestamp, then confirms only an exact amount and matching order reference. Underpaid, overpaid, unmatched, and repeat transfers remain unpaid for manual review.
+- The SePay QR image uses SePay's documented VietQR image endpoint; the recipient account number, amount, and order reference are included in its image URL.
+- Optional PayOS remains available by configuring `PAYOS_CLIENT_ID`, `PAYOS_API_KEY`, `PAYOS_CHECKSUM_KEY`, then registering `https://<host>/api/webhooks/payos` in PayOS.
 - Configure `RESEND_API_KEY` and a verified `RESEND_FROM_EMAIL` to send paid-order receipts. Receipt links require the buyer to sign in.
-- Keep `SUPABASE_SERVICE_ROLE_KEY` server-only. It is used only by the verified PayOS webhook.
+- Keep `SUPABASE_SERVICE_ROLE_KEY` server-only. It is used by verified payment webhooks only.
 
 Digital files live in the private `digital-assets` bucket. Buyer downloads are checked against the signed-in owner and paid order, then receive a 60-second signed URL. Physical products are charged one configured flat shipping fee per seller. Digital goods cannot be paid COD.
 

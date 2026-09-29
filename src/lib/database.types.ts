@@ -598,6 +598,15 @@ export type Database = {
         }
         Returns: boolean
       }
+      confirm_sepay_payment: {
+        Args: {
+          p_amount: number
+          p_event_id: string
+          p_order_code: number | null
+          p_payload: Json
+        }
+        Returns: boolean
+      }
       create_marketplace_order: {
         Args: {
           p_customer: Json
@@ -622,7 +631,7 @@ export type Database = {
       }
     }
     Enums: {
-      order_payment_method: "payos" | "cod"
+      order_payment_method: "payos" | "cod" | "sepay"
       payment_state: "pending" | "paid" | "failed" | "cancelled"
       product_kind: "physical" | "digital"
       seller_application_state: "pending" | "approved" | "rejected"
@@ -760,7 +769,7 @@ export type CompositeTypes<
 export const Constants = {
   public: {
     Enums: {
-      order_payment_method: ["payos", "cod"],
+      order_payment_method: ["payos", "cod", "sepay"],
       payment_state: ["pending", "paid", "failed", "cancelled"],
       product_kind: ["physical", "digital"],
       seller_application_state: ["pending", "approved", "rejected"],

@@ -93,7 +93,15 @@
     "existing": "Already have an account? Sign in",
     "checkEmail": "Check your email to confirm your account.",
     "notConfigured": "Supabase connection is not configured.",
-    "continue": "Working…"
+    "continue": "Working…",
+    "forgotPassword": "Forgot password?",
+    "sendReset": "Send password reset link",
+    "resetSent": "If this email exists, a password reset link has been sent.",
+    "resetPasswordTitle": "Set a new password",
+    "resetPasswordDescription": "Choose a new password for your Munbase account.",
+    "newPassword": "New password (at least 8 characters)",
+    "updatePassword": "Update password",
+    "passwordUpdated": "Your password has been updated."
   },
   "sellerForm": {
     "shop": "Shop name",

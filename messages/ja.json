@@ -93,7 +93,15 @@
     "existing": "すでにアカウントをお持ちですか？ログイン",
     "checkEmail": "メールを確認してアカウントを認証してください。",
     "notConfigured": "Supabase接続が設定されていません。",
-    "continue": "処理中…"
+    "continue": "処理中…",
+    "forgotPassword": "パスワードをお忘れですか？",
+    "sendReset": "パスワード再設定リンクを送信",
+    "resetSent": "このメールアドレスが登録済みの場合、再設定リンクを送信しました。",
+    "resetPasswordTitle": "新しいパスワードを設定",
+    "resetPasswordDescription": "Munbaseアカウントの新しいパスワードを設定してください。",
+    "newPassword": "新しいパスワード（8文字以上）",
+    "updatePassword": "パスワードを更新",
+    "passwordUpdated": "パスワードを更新しました。"
   },
   "sellerForm": {
     "shop": "ショップ名",

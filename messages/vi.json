@@ -93,7 +93,15 @@
     "existing": "Đã có tài khoản? Đăng nhập",
     "checkEmail": "Kiểm tra email để xác nhận tài khoản.",
     "notConfigured": "Chưa cấu hình kết nối Supabase.",
-    "continue": "Đang xử lý…"
+    "continue": "Đang xử lý…",
+    "forgotPassword": "Quên mật khẩu?",
+    "sendReset": "Gửi liên kết đặt lại mật khẩu",
+    "resetSent": "Nếu email tồn tại, liên kết đặt lại mật khẩu đã được gửi.",
+    "resetPasswordTitle": "Đặt mật khẩu mới",
+    "resetPasswordDescription": "Chọn mật khẩu mới cho tài khoản Munbase của bạn.",
+    "newPassword": "Mật khẩu mới (ít nhất 8 ký tự)",
+    "updatePassword": "Cập nhật mật khẩu",
+    "passwordUpdated": "Mật khẩu đã được cập nhật."
   },
   "sellerForm": {
     "shop": "Tên gian hàng",

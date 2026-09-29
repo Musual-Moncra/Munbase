@@ -103,5 +103,37 @@
     "pending": "申请正在等待管理员审核。",
     "signInAgain": "请重新登录。",
     "notConfigured": "尚未配置 Supabase 连接。"
+  },
+  "productForm": {
+    "title": "商品名称",
+    "description": "商品描述",
+    "price": "价格（越南盾）",
+    "physical": "实物商品",
+    "digital": "数字商品",
+    "stock": "实物库存数量",
+    "cover": "封面图片网址",
+    "file": "私有数字文件（最大 50 MB）",
+    "uploading": "上传中…",
+    "publish": "发布商品",
+    "missingFile": "请选择要上传的数字商品文件。",
+    "fileTooLarge": "数字文件不能超过 50 MB。",
+    "published": "商品已发布。刷新页面查看。",
+    "signIn": "请重新登录。",
+    "notConfigured": "尚未配置 Supabase。"
+  },
+  "shipment": {
+    "order": "订单",
+    "noContact": "无电话号码",
+    "status": "当前状态",
+    "pending": "待处理",
+    "ready": "准备发货",
+    "shipped": "已发货",
+    "delivered": "已送达",
+    "carrier": "承运商（可选）",
+    "tracking": "运单号",
+    "save": "更新发货信息",
+    "saving": "保存中…",
+    "updated": "发货信息已更新。刷新页面查看最新状态。",
+    "notConfigured": "尚未配置 Supabase。"
   }
 }

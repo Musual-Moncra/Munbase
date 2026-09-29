@@ -103,5 +103,37 @@
     "pending": "申請は管理者の審査待ちです。",
     "signInAgain": "もう一度ログインしてください。",
     "notConfigured": "Supabase接続が設定されていません。"
+  },
+  "productForm": {
+    "title": "商品名",
+    "description": "商品説明",
+    "price": "価格（VND）",
+    "physical": "物理商品",
+    "digital": "デジタル商品",
+    "stock": "在庫数",
+    "cover": "カバー画像 URL",
+    "file": "非公開デジタルファイル（最大 50 MB）",
+    "uploading": "アップロード中…",
+    "publish": "商品を公開",
+    "missingFile": "アップロードするデジタル商品ファイルを選択してください。",
+    "fileTooLarge": "デジタルファイルは 50 MB 以下にしてください。",
+    "published": "商品を公開しました。ページを再読み込みしてください。",
+    "signIn": "もう一度ログインしてください。",
+    "notConfigured": "Supabaseが設定されていません。"
+  },
+  "shipment": {
+    "order": "注文",
+    "noContact": "電話番号なし",
+    "status": "現在の状態",
+    "pending": "保留中",
+    "ready": "発送準備完了",
+    "shipped": "発送済み",
+    "delivered": "配達済み",
+    "carrier": "配送会社（任意）",
+    "tracking": "追跡番号",
+    "save": "配送を更新",
+    "saving": "保存中…",
+    "updated": "配送情報を更新しました。再読み込みして確認してください。",
+    "notConfigured": "Supabaseが設定されていません。"
   }
 }

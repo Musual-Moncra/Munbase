@@ -103,5 +103,37 @@
     "pending": "신청이 관리자 검토를 기다리고 있습니다.",
     "signInAgain": "다시 로그인해 주세요.",
     "notConfigured": "Supabase 연결이 설정되지 않았습니다."
+  },
+  "productForm": {
+    "title": "상품명",
+    "description": "상품 설명",
+    "price": "가격 (VND)",
+    "physical": "실물 상품",
+    "digital": "디지털 상품",
+    "stock": "실물 재고 수량",
+    "cover": "커버 이미지 URL",
+    "file": "비공개 디지털 파일 (최대 50MB)",
+    "uploading": "업로드 중…",
+    "publish": "상품 게시",
+    "missingFile": "업로드할 디지털 상품 파일을 선택하세요.",
+    "fileTooLarge": "디지털 파일은 50MB 이하여야 합니다.",
+    "published": "상품이 게시되었습니다. 새로고침하여 확인하세요.",
+    "signIn": "다시 로그인해 주세요.",
+    "notConfigured": "Supabase가 설정되지 않았습니다."
+  },
+  "shipment": {
+    "order": "주문",
+    "noContact": "전화번호 없음",
+    "status": "현재 상태",
+    "pending": "대기 중",
+    "ready": "발송 준비 완료",
+    "shipped": "발송됨",
+    "delivered": "배송 완료",
+    "carrier": "택배사 (선택)",
+    "tracking": "운송장 번호",
+    "save": "배송 업데이트",
+    "saving": "저장 중…",
+    "updated": "배송 정보를 업데이트했습니다. 새로고침하여 확인하세요.",
+    "notConfigured": "Supabase가 설정되지 않았습니다."
   }
 }

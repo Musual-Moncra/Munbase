@@ -103,5 +103,37 @@
     "pending": "Your application is waiting for admin review.",
     "signInAgain": "Please sign in again.",
     "notConfigured": "Supabase connection is not configured."
+  },
+  "productForm": {
+    "title": "Product title",
+    "description": "Description",
+    "price": "Price in VND",
+    "physical": "Physical product",
+    "digital": "Digital product",
+    "stock": "Physical stock quantity",
+    "cover": "Cover image URL",
+    "file": "Private digital file (max 50 MB)",
+    "uploading": "Uploading…",
+    "publish": "Publish product",
+    "missingFile": "Select a digital product file to upload.",
+    "fileTooLarge": "Digital files must be 50 MB or smaller.",
+    "published": "Product published. Refresh to see it.",
+    "signIn": "Sign in again to continue.",
+    "notConfigured": "Supabase is not configured."
+  },
+  "shipment": {
+    "order": "Order",
+    "noContact": "No phone",
+    "status": "Current status",
+    "pending": "Pending",
+    "ready": "Ready to ship",
+    "shipped": "Shipped",
+    "delivered": "Delivered",
+    "carrier": "Carrier (optional)",
+    "tracking": "Tracking number",
+    "save": "Update shipment",
+    "saving": "Saving…",
+    "updated": "Shipment updated. Refresh to see the current status.",
+    "notConfigured": "Supabase is not configured."
   }
 }

@@ -103,5 +103,37 @@
     "pending": "Yêu cầu của bạn đang chờ quản trị viên duyệt.",
     "signInAgain": "Vui lòng đăng nhập lại.",
     "notConfigured": "Chưa cấu hình kết nối Supabase."
+  },
+  "productForm": {
+    "title": "Tên sản phẩm",
+    "description": "Mô tả",
+    "price": "Giá bán (VND)",
+    "physical": "Hàng vật lý",
+    "digital": "Sản phẩm số",
+    "stock": "Số lượng tồn kho",
+    "cover": "URL ảnh bìa",
+    "file": "Tệp số riêng tư (tối đa 50 MB)",
+    "uploading": "Đang tải lên…",
+    "publish": "Đăng sản phẩm",
+    "missingFile": "Chọn tệp sản phẩm số để tải lên.",
+    "fileTooLarge": "Tệp số phải có dung lượng tối đa 50 MB.",
+    "published": "Sản phẩm đã được đăng. Tải lại trang để xem.",
+    "signIn": "Vui lòng đăng nhập lại.",
+    "notConfigured": "Chưa cấu hình Supabase."
+  },
+  "shipment": {
+    "order": "Đơn hàng",
+    "noContact": "Không có số điện thoại",
+    "status": "Trạng thái hiện tại",
+    "pending": "Chờ xử lý",
+    "ready": "Sẵn sàng giao",
+    "shipped": "Đã gửi",
+    "delivered": "Đã giao",
+    "carrier": "Đơn vị vận chuyển (không bắt buộc)",
+    "tracking": "Mã vận đơn",
+    "save": "Cập nhật kiện hàng",
+    "saving": "Đang lưu…",
+    "updated": "Đã cập nhật kiện hàng. Tải lại trang để xem trạng thái mới.",
+    "notConfigured": "Chưa cấu hình Supabase."
   }
 }

@@ -1,0 +1,6 @@
+'use client';
+import {useState} from 'react';
+import {useRouter} from '@/i18n/navigation';
+import {useTranslations} from 'next-intl';
+import {createSupabaseBrowserClient} from '@/lib/supabase/browser';
+export function SellerInventoryControl({id,stock}:{id:string;stock:number}){const t=useTranslations('productForm');const router=useRouter();const [value,setValue]=useState(stock);const [busy,setBusy]=useState(false);const [message,setMessage]=useState('');async function save(){setBusy(true);setMessage('');const supabase=createSupabaseBrowserClient();if(!supabase){setMessage(t('notConfigured'));setBusy(false);return;}const {error}=await supabase.rpc('seller_set_product_stock',{p_product_id:id,p_stock:value});setMessage(error?error.message:t('stockSaved'));if(!error)router.refresh();setBusy(false);}return <div className="inline-form"><label>{t('stock')}<input className="field" type="number" min={0} max={100000} value={value} onChange={e=>setValue(Number(e.target.value))}/></label><button className="button secondary" disabled={busy||value<0||value>100000} onClick={()=>void save()}>{busy?t('saving'):t('saveStock')}</button>{message&&<p role="status" className="muted">{message}</p>}</div>;}

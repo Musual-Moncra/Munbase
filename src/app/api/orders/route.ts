@@ -8,8 +8,15 @@ export async function POST(request:Request){
   const supabase=await createSupabaseServerClient();if(!supabase)return NextResponse.json({error:'Supabase is not configured.'},{status:503});
   const {data:auth}=await supabase.auth.getClaims();if(!auth?.claims)return NextResponse.json({error:'Sign in before placing an order.'},{status:401});
   const parsed=checkoutSchema.safeParse(await request.json().catch(()=>null));if(!parsed.success)return NextResponse.json({error:'Invalid order details.'},{status:400});
+  let shippingAddress=parsed.data.customer.address??null;
+  if(parsed.data.customer.addressId){
+    const {data:address,error:addressError}=await supabase.from('shipping_addresses').select('recipient_name,phone,province,district,ward,address_line,note').eq('id',parsed.data.customer.addressId).eq('user_id',String(auth.claims.sub)).maybeSingle();
+    if(addressError||!address)return NextResponse.json({error:'The selected shipping address is unavailable.'},{status:400});
+    shippingAddress=address;
+  }
+  if(shippingAddress&&parsed.data.customer.phone&&shippingAddress.phone!==parsed.data.customer.phone)shippingAddress={...shippingAddress,phone:parsed.data.customer.phone};
   if(parsed.data.paymentMethod==='sepay'&&(!process.env.SEPAY_BANK_ACCOUNT||!process.env.SEPAY_BANK_CODE||!process.env.SEPAY_WEBHOOK_SECRET||!(process.env.SUPABASE_SERVICE_ROLE_KEY||process.env.SUPABASE_SECRET_KEY)))return NextResponse.json({error:'SePay is not fully configured yet.'},{status:503});
-  const {data:orderId,error}=await supabase.rpc('create_marketplace_order',{p_items:parsed.data.items,p_customer:parsed.data.customer,p_payment_method:parsed.data.paymentMethod});
+  const {data:orderId,error}=await supabase.rpc('create_marketplace_order',{p_items:parsed.data.items,p_customer:{name:parsed.data.customer.name,email:parsed.data.customer.email,phone:parsed.data.customer.phone,address:shippingAddress},p_payment_method:parsed.data.paymentMethod});
   if(error){const status=error.message.includes('authentication_required')?401:error.message.includes('unavailable')||error.message.includes('stock')?409:400;return NextResponse.json({error:error.message.replaceAll('_',' ')},{status});}
   if(parsed.data.paymentMethod==='cod')return NextResponse.json({orderId});
   const {data:order,error:readError}=await supabase.from('orders').select('order_code,total_amount').eq('id',orderId).single();

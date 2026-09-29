@@ -1,14 +1,13 @@
 import {getTranslations} from 'next-intl/server';
 import {Link} from '@/i18n/navigation';
 import {createSupabaseServerClient} from '@/lib/supabase/server';
-import {SellerApplicationForm} from '@/components/seller-application-form';
 import {ShipmentEditor} from '@/components/shipment-editor';
 import {SellerSettingsForm} from '@/components/seller-settings-form';
 export default async function DashboardPage(){
   const t=await getTranslations('dashboard');const supabase=await createSupabaseServerClient();if(!supabase)return <main className="shell page-main"><h1 className="page-title">{t('title')}</h1><div className="empty">{t('notConfigured')}</div></main>;
   const {data:auth}=await supabase.auth.getClaims();const claims=auth?.claims;if(!claims)return <main className="shell page-main"><h1 className="page-title">{t('title')}</h1><p className="muted">{t('signInToApply')}</p><Link className="button" href="/login">{t('signIn')}</Link></main>;
-  const [{data:profile},{data:application}]=await Promise.all([supabase.from('profiles').select('role').eq('id',claims.sub).maybeSingle(),supabase.from('seller_applications').select('status,shop_name').eq('user_id',claims.sub).maybeSingle()]);
-  if(profile?.role!=='seller'&&profile?.role!=='admin')return <main className="shell page-main"><span className="eyebrow">{t('eyebrow')}</span><h1 className="page-title">{t('title')}</h1><p className="muted">{t('subtitle')}</p>{application&&<div className="card-panel">{application.shop_name} · {t(`application_${application.status}`)}</div>}{(!application||application.status==='rejected')&&<SellerApplicationForm/>}</main>;
+  const [{data:profile},{data:application}]=await Promise.all([supabase.from('profiles').select('role').eq('id',claims.sub).maybeSingle(),supabase.from('seller_applications').select('status,shop_name,submitted_at,rejection_reason').eq('user_id',claims.sub).maybeSingle()]);
+  if(profile?.role!=='seller'&&profile?.role!=='admin')return <main className="shell page-main"><span className="eyebrow">{t('eyebrow')}</span><h1 className="page-title">{t('title')}</h1><p className="muted">{t('subtitle')}</p>{application&&<div className="card-panel">{application.shop_name} · {t(application.submitted_at?`application_${application.status}`:'application_draft')}{application.rejection_reason&&<p className="alert-note">{application.rejection_reason}</p>}</div>}<Link className="button" href="/dashboard/apply">{application?.status==='rejected'?t('editApplication'):t('applyNow')}</Link></main>;
   const [{count:productCount},{count:orderCount},{data:shipments},{data:shop},{data:payout}]=await Promise.all([
     supabase.from('products').select('*',{count:'exact',head:true}).eq('seller_id',claims.sub),
     supabase.from('shipments').select('*',{count:'exact',head:true}).eq('seller_id',claims.sub),

@@ -1,0 +1,11 @@
+create index if not exists admin_audit_log_actor_idx on public.admin_audit_log(actor_id,created_at desc);
+create index if not exists order_adjustments_created_by_idx on public.order_adjustments(created_by,created_at desc);
+create index if not exists order_adjustments_replacement_order_idx on public.order_adjustments(replacement_order_id) where replacement_order_id is not null;
+create index if not exists order_adjustments_settled_by_idx on public.order_adjustments(settled_by) where settled_by is not null;
+create index if not exists product_submission_reviews_reviewer_idx on public.product_submission_reviews(reviewer_id,created_at desc);
+create index if not exists product_submission_reviews_submission_idx on public.product_submission_reviews(submission_id,created_at desc);
+create index if not exists product_submissions_category_idx on public.product_submissions(category_id) where category_id is not null;
+create index if not exists product_submissions_product_idx on public.product_submissions(product_id) where product_id is not null;
+create index if not exists product_submissions_reviewed_by_idx on public.product_submissions(reviewed_by) where reviewed_by is not null;
+create index if not exists seller_application_reviews_application_idx on public.seller_application_reviews(application_id,created_at desc);
+create index if not exists seller_application_reviews_reviewer_idx on public.seller_application_reviews(reviewer_id,created_at desc);

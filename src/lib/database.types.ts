@@ -14,6 +14,50 @@ export type Database = {
   }
   public: {
     Tables: {
+      admin_audit_log: {
+        Row: {
+          action: string
+          actor_id: string
+          after_state: Json
+          before_state: Json
+          created_at: string
+          entity_id: string
+          entity_type: string
+          id: string
+          reason: string
+        }
+        Insert: {
+          action: string
+          actor_id: string
+          after_state?: Json
+          before_state?: Json
+          created_at?: string
+          entity_id: string
+          entity_type: string
+          id?: string
+          reason: string
+        }
+        Update: {
+          action?: string
+          actor_id?: string
+          after_state?: Json
+          before_state?: Json
+          created_at?: string
+          entity_id?: string
+          entity_type?: string
+          id?: string
+          reason?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "admin_audit_log_actor_id_fkey"
+            columns: ["actor_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       categories: {
         Row: {
           created_at: string
@@ -104,6 +148,89 @@ export type Database = {
           updated_at?: string
         }
         Relationships: []
+      }
+      order_adjustments: {
+        Row: {
+          after_state: Json
+          before_state: Json
+          created_at: string
+          created_by: string
+          delta_amount: number
+          evidence_reference: string | null
+          id: string
+          kind: string
+          order_id: string
+          reason: string
+          replacement_order_id: string | null
+          request_key: string
+          settled_at: string | null
+          settled_by: string | null
+          status: string
+        }
+        Insert: {
+          after_state?: Json
+          before_state?: Json
+          created_at?: string
+          created_by: string
+          delta_amount?: number
+          evidence_reference?: string | null
+          id?: string
+          kind: string
+          order_id: string
+          reason: string
+          replacement_order_id?: string | null
+          request_key?: string
+          settled_at?: string | null
+          settled_by?: string | null
+          status?: string
+        }
+        Update: {
+          after_state?: Json
+          before_state?: Json
+          created_at?: string
+          created_by?: string
+          delta_amount?: number
+          evidence_reference?: string | null
+          id?: string
+          kind?: string
+          order_id?: string
+          reason?: string
+          replacement_order_id?: string | null
+          request_key?: string
+          settled_at?: string | null
+          settled_by?: string | null
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "order_adjustments_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "order_adjustments_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "order_adjustments_replacement_order_id_fkey"
+            columns: ["replacement_order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "order_adjustments_settled_by_fkey"
+            columns: ["settled_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
       }
       order_items: {
         Row: {
@@ -287,8 +414,147 @@ export type Database = {
           },
         ]
       }
+      product_submission_reviews: {
+        Row: {
+          created_at: string
+          decision: string
+          id: string
+          reason: string
+          reviewer_id: string
+          submission_id: string
+        }
+        Insert: {
+          created_at?: string
+          decision: string
+          id?: string
+          reason: string
+          reviewer_id: string
+          submission_id: string
+        }
+        Update: {
+          created_at?: string
+          decision?: string
+          id?: string
+          reason?: string
+          reviewer_id?: string
+          submission_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "product_submission_reviews_reviewer_id_fkey"
+            columns: ["reviewer_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "product_submission_reviews_submission_id_fkey"
+            columns: ["submission_id"]
+            isOneToOne: false
+            referencedRelation: "product_submissions"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      product_submissions: {
+        Row: {
+          category_id: string | null
+          created_at: string
+          description: string
+          digital_file_path: string | null
+          id: string
+          images: string[]
+          initial_stock: number
+          price: number
+          product_id: string | null
+          product_type: Database["public"]["Enums"]["product_kind"]
+          rejection_reason: string | null
+          reviewed_at: string | null
+          reviewed_by: string | null
+          seller_id: string
+          slug: string
+          status: string
+          submitted_at: string | null
+          title: string
+          updated_at: string
+        }
+        Insert: {
+          category_id?: string | null
+          created_at?: string
+          description: string
+          digital_file_path?: string | null
+          id?: string
+          images?: string[]
+          initial_stock?: number
+          price: number
+          product_id?: string | null
+          product_type: Database["public"]["Enums"]["product_kind"]
+          rejection_reason?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          seller_id: string
+          slug: string
+          status?: string
+          submitted_at?: string | null
+          title: string
+          updated_at?: string
+        }
+        Update: {
+          category_id?: string | null
+          created_at?: string
+          description?: string
+          digital_file_path?: string | null
+          id?: string
+          images?: string[]
+          initial_stock?: number
+          price?: number
+          product_id?: string | null
+          product_type?: Database["public"]["Enums"]["product_kind"]
+          rejection_reason?: string | null
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          seller_id?: string
+          slug?: string
+          status?: string
+          submitted_at?: string | null
+          title?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "product_submissions_category_id_fkey"
+            columns: ["category_id"]
+            isOneToOne: false
+            referencedRelation: "categories"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "product_submissions_product_id_fkey"
+            columns: ["product_id"]
+            isOneToOne: false
+            referencedRelation: "products"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "product_submissions_reviewed_by_fkey"
+            columns: ["reviewed_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "product_submissions_seller_id_fkey"
+            columns: ["seller_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       products: {
         Row: {
+          admin_block_reason: string | null
+          admin_blocked: boolean
           category_id: string | null
           created_at: string
           description: string
@@ -305,6 +571,8 @@ export type Database = {
           updated_at: string
         }
         Insert: {
+          admin_block_reason?: string | null
+          admin_blocked?: boolean
           category_id?: string | null
           created_at?: string
           description?: string
@@ -321,6 +589,8 @@ export type Database = {
           updated_at?: string
         }
         Update: {
+          admin_block_reason?: string | null
+          admin_blocked?: boolean
           category_id?: string | null
           created_at?: string
           description?: string
@@ -361,6 +631,7 @@ export type Database = {
           id: string
           phone: string | null
           role: Database["public"]["Enums"]["user_role"]
+          theme_preference: string
           updated_at: string
         }
         Insert: {
@@ -370,6 +641,7 @@ export type Database = {
           id: string
           phone?: string | null
           role?: Database["public"]["Enums"]["user_role"]
+          theme_preference?: string
           updated_at?: string
         }
         Update: {
@@ -379,6 +651,7 @@ export type Database = {
           id?: string
           phone?: string | null
           role?: Database["public"]["Enums"]["user_role"]
+          theme_preference?: string
           updated_at?: string
         }
         Relationships: []
@@ -425,39 +698,143 @@ export type Database = {
           },
         ]
       }
+      seller_application_payout_accounts: {
+        Row: {
+          application_id: string
+          bank_account_name: string | null
+          bank_account_number: string | null
+          bank_name: string | null
+          updated_at: string
+        }
+        Insert: {
+          application_id: string
+          bank_account_name?: string | null
+          bank_account_number?: string | null
+          bank_name?: string | null
+          updated_at?: string
+        }
+        Update: {
+          application_id?: string
+          bank_account_name?: string | null
+          bank_account_number?: string | null
+          bank_name?: string | null
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "seller_application_payout_accounts_application_id_fkey"
+            columns: ["application_id"]
+            isOneToOne: true
+            referencedRelation: "seller_applications"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      seller_application_reviews: {
+        Row: {
+          application_id: string
+          created_at: string
+          decision: string
+          id: string
+          reason: string
+          reviewer_id: string
+        }
+        Insert: {
+          application_id: string
+          created_at?: string
+          decision: string
+          id?: string
+          reason: string
+          reviewer_id: string
+        }
+        Update: {
+          application_id?: string
+          created_at?: string
+          decision?: string
+          id?: string
+          reason?: string
+          reviewer_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "seller_application_reviews_application_id_fkey"
+            columns: ["application_id"]
+            isOneToOne: false
+            referencedRelation: "seller_applications"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "seller_application_reviews_reviewer_id_fkey"
+            columns: ["reviewer_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       seller_applications: {
         Row: {
+          contact_address: Json
+          contact_name: string
           contact_phone: string
           created_at: string
           description: string | null
           id: string
+          product_categories: string[]
+          product_types: string[]
+          proof_url: string | null
+          rejection_reason: string | null
           reviewed_at: string | null
           reviewed_by: string | null
           shop_name: string
           status: Database["public"]["Enums"]["seller_application_state"]
+          submitted_at: string | null
+          terms_accepted_at: string | null
+          terms_version: string | null
           user_id: string
+          website_url: string | null
         }
         Insert: {
+          contact_address?: Json
+          contact_name?: string
           contact_phone: string
           created_at?: string
           description?: string | null
           id?: string
+          product_categories?: string[]
+          product_types?: string[]
+          proof_url?: string | null
+          rejection_reason?: string | null
           reviewed_at?: string | null
           reviewed_by?: string | null
           shop_name: string
           status?: Database["public"]["Enums"]["seller_application_state"]
+          submitted_at?: string | null
+          terms_accepted_at?: string | null
+          terms_version?: string | null
           user_id: string
+          website_url?: string | null
         }
         Update: {
+          contact_address?: Json
+          contact_name?: string
           contact_phone?: string
           created_at?: string
           description?: string | null
           id?: string
+          product_categories?: string[]
+          product_types?: string[]
+          proof_url?: string | null
+          rejection_reason?: string | null
           reviewed_at?: string | null
           reviewed_by?: string | null
           shop_name?: string
           status?: Database["public"]["Enums"]["seller_application_state"]
+          submitted_at?: string | null
+          terms_accepted_at?: string | null
+          terms_version?: string | null
           user_id?: string
+          website_url?: string | null
         }
         Relationships: [
           {
@@ -620,6 +997,59 @@ export type Database = {
           },
         ]
       }
+      shipping_addresses: {
+        Row: {
+          address_line: string
+          created_at: string
+          district: string
+          id: string
+          is_default: boolean
+          note: string
+          phone: string
+          province: string
+          recipient_name: string
+          updated_at: string
+          user_id: string
+          ward: string
+        }
+        Insert: {
+          address_line: string
+          created_at?: string
+          district: string
+          id?: string
+          is_default?: boolean
+          note?: string
+          phone: string
+          province: string
+          recipient_name: string
+          updated_at?: string
+          user_id: string
+          ward: string
+        }
+        Update: {
+          address_line?: string
+          created_at?: string
+          district?: string
+          id?: string
+          is_default?: boolean
+          note?: string
+          phone?: string
+          province?: string
+          recipient_name?: string
+          updated_at?: string
+          user_id?: string
+          ward?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "shipping_addresses_user_id_fkey"
+            columns: ["user_id"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       shops: {
         Row: {
           created_at: string
@@ -663,16 +1093,78 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      admin_adjust_pending_cod_order: {
+        Args: { p_items: Json; p_order_id: string; p_reason: string }
+        Returns: undefined
+      }
+      admin_cancel_unpaid_order: {
+        Args: { p_order_id: string; p_reason: string }
+        Returns: undefined
+      }
       admin_confirm_cod_remittance: {
         Args: { p_order_id: string; p_reference: string }
         Returns: undefined
+      }
+      admin_create_financial_adjustment: {
+        Args: {
+          p_delta_amount: number
+          p_evidence_reference: string
+          p_order_id: string
+          p_reason: string
+          p_request_key: string
+        }
+        Returns: string
       }
       admin_mark_reconciled: {
         Args: { p_reconciliation_id: string }
         Returns: undefined
       }
-      admin_review_seller_application: {
-        Args: { p_application_id: string; p_approve: boolean }
+      admin_reissue_pending_sepay_order: {
+        Args: { p_items: Json; p_order_id: string; p_reason: string }
+        Returns: string
+      }
+      admin_remove_product: {
+        Args: { p_product_id: string; p_reason: string }
+        Returns: undefined
+      }
+      admin_review_product_submission: {
+        Args: { p_approve: boolean; p_reason: string; p_submission_id: string }
+        Returns: string
+      }
+      admin_review_seller_application:
+        | {
+            Args: { p_application_id: string; p_approve: boolean }
+            Returns: undefined
+          }
+        | {
+            Args: {
+              p_application_id: string
+              p_decision: string
+              p_reason: string
+            }
+            Returns: undefined
+          }
+      admin_set_shipment_status: {
+        Args: {
+          p_carrier: string
+          p_reason: string
+          p_shipment_id: string
+          p_status: Database["public"]["Enums"]["shipment_state"]
+          p_tracking: string
+        }
+        Returns: undefined
+      }
+      admin_settle_order_adjustment: {
+        Args: { p_adjustment_id: string; p_reference: string }
+        Returns: undefined
+      }
+      admin_update_order_shipping: {
+        Args: {
+          p_address: Json
+          p_order_id: string
+          p_phone: string
+          p_reason: string
+        }
         Returns: undefined
       }
       cancel_cod_order: { Args: { p_order_id: string }; Returns: undefined }
@@ -704,6 +1196,27 @@ export type Database = {
       }
       expire_unpaid_orders: { Args: never; Returns: number }
       is_order_paid: { Args: { p_order_id: string }; Returns: boolean }
+      save_product_submission: {
+        Args: {
+          p_payload: Json
+          p_product_id: string
+          p_submission_id: string
+          p_submit?: boolean
+        }
+        Returns: string
+      }
+      save_seller_application: {
+        Args: { p_payload: Json; p_submit?: boolean }
+        Returns: string
+      }
+      seller_set_product_stock: {
+        Args: { p_product_id: string; p_stock: number }
+        Returns: undefined
+      }
+      seller_set_product_visibility: {
+        Args: { p_product_id: string; p_visible: boolean }
+        Returns: undefined
+      }
       seller_update_shipment: {
         Args: {
           p_carrier: string
@@ -711,6 +1224,10 @@ export type Database = {
           p_status: Database["public"]["Enums"]["shipment_state"]
           p_tracking_number: string
         }
+        Returns: undefined
+      }
+      set_default_shipping_address: {
+        Args: { p_address_id: string }
         Returns: undefined
       }
       set_payos_payment_link: {

@@ -18,7 +18,7 @@ export function CartView({products}:{products:Product[]}){
   return <>
     {summary.unavailableCount>0&&<div className="empty" role="status">
       <p>{t('unavailable',{count:summary.unavailableCount})}</p>
-      <button className="button secondary" onClick={()=>updateCart(cart.filter(line=>productsById.has(line.productId)&&!productsById.get(line.productId)?.preview))}>{t('removeUnavailable')}</button>
+      <button className="button secondary" onClick={()=>updateCart(cart.filter(line=>productsById.has(line.productId)))}>{t('removeUnavailable')}</button>
     </div>}
     {summary.lines.length>0&&<div className="card-panel">
       {summary.lines.map(({line,product})=><div key={line.productId} className="product-meta" style={{padding:'12px 0',borderBottom:'1px solid var(--line)'}}>

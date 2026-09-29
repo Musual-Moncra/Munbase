@@ -166,10 +166,14 @@ export type Database = {
       orders: {
         Row: {
           buyer_id: string
+          cancelled_at: string | null
+          cod_remittance_reference: string | null
+          cod_remitted_at: string | null
           created_at: string
           customer_email: string
           customer_name: string
           customer_phone: string | null
+          expires_at: string | null
           id: string
           order_code: number
           paid_at: string | null
@@ -185,10 +189,14 @@ export type Database = {
         }
         Insert: {
           buyer_id: string
+          cancelled_at?: string | null
+          cod_remittance_reference?: string | null
+          cod_remitted_at?: string | null
           created_at?: string
           customer_email: string
           customer_name: string
           customer_phone?: string | null
+          expires_at?: string | null
           id?: string
           order_code?: never
           paid_at?: string | null
@@ -204,10 +212,14 @@ export type Database = {
         }
         Update: {
           buyer_id?: string
+          cancelled_at?: string | null
+          cod_remittance_reference?: string | null
+          cod_remitted_at?: string | null
           created_at?: string
           customer_email?: string
           customer_name?: string
           customer_phone?: string | null
+          expires_at?: string | null
           id?: string
           order_code?: never
           paid_at?: string | null
@@ -464,6 +476,38 @@ export type Database = {
           },
         ]
       }
+      seller_payout_accounts: {
+        Row: {
+          bank_account_name: string
+          bank_account_number: string
+          bank_name: string
+          seller_id: string
+          updated_at: string
+        }
+        Insert: {
+          bank_account_name: string
+          bank_account_number: string
+          bank_name: string
+          seller_id: string
+          updated_at?: string
+        }
+        Update: {
+          bank_account_name?: string
+          bank_account_number?: string
+          bank_name?: string
+          seller_id?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "seller_payout_accounts_seller_id_fkey"
+            columns: ["seller_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       seller_reconciliations: {
         Row: {
           commission_amount: number
@@ -576,11 +620,53 @@ export type Database = {
           },
         ]
       }
+      shops: {
+        Row: {
+          created_at: string
+          description: string
+          is_active: boolean
+          logo_url: string | null
+          seller_id: string
+          shop_name: string
+          updated_at: string
+        }
+        Insert: {
+          created_at?: string
+          description?: string
+          is_active?: boolean
+          logo_url?: string | null
+          seller_id: string
+          shop_name: string
+          updated_at?: string
+        }
+        Update: {
+          created_at?: string
+          description?: string
+          is_active?: boolean
+          logo_url?: string | null
+          seller_id?: string
+          shop_name?: string
+          updated_at?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "shops_seller_id_fkey"
+            columns: ["seller_id"]
+            isOneToOne: true
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       [_ in never]: never
     }
     Functions: {
+      admin_confirm_cod_remittance: {
+        Args: { p_order_id: string; p_reference: string }
+        Returns: undefined
+      }
       admin_mark_reconciled: {
         Args: { p_reconciliation_id: string }
         Returns: undefined
@@ -589,6 +675,7 @@ export type Database = {
         Args: { p_application_id: string; p_approve: boolean }
         Returns: undefined
       }
+      cancel_cod_order: { Args: { p_order_id: string }; Returns: undefined }
       confirm_payos_payment: {
         Args: {
           p_amount: number
@@ -602,7 +689,7 @@ export type Database = {
         Args: {
           p_amount: number
           p_event_id: string
-          p_order_code: number | null
+          p_order_code: number
           p_payload: Json
         }
         Returns: boolean
@@ -615,6 +702,7 @@ export type Database = {
         }
         Returns: string
       }
+      expire_unpaid_orders: { Args: never; Returns: number }
       is_order_paid: { Args: { p_order_id: string }; Returns: boolean }
       seller_update_shipment: {
         Args: {
@@ -628,6 +716,14 @@ export type Database = {
       set_payos_payment_link: {
         Args: { p_link_id: string; p_order_code: number; p_order_id: string }
         Returns: undefined
+      }
+      submit_seller_application: {
+        Args: {
+          p_contact_phone: string
+          p_description: string
+          p_shop_name: string
+        }
+        Returns: string
       }
     }
     Enums: {

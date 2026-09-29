@@ -8,7 +8,6 @@ const catalog:Product[]=[
   {id:'physical-b',sellerId:'seller-a',title:'Physical B',seller:'A',price:200,type:'physical',mark:'B',color:'',category:'',slug:'physical-b'},
   {id:'physical-c',sellerId:'seller-b',title:'Physical C',seller:'B',price:300,type:'physical',mark:'C',color:'',category:'',slug:'physical-c'},
   {id:'digital',sellerId:'seller-a',title:'Digital',seller:'A',price:400,type:'digital',mark:'D',color:'',category:'',slug:'digital'},
-  {id:'preview',title:'Preview',seller:'A',price:1,type:'physical',mark:'P',color:'',category:'',slug:'preview',preview:true},
 ];
 const line=(productId:string,quantity=1):CartLine=>({productId,quantity});
 
@@ -20,6 +19,7 @@ describe('summarizeCart',()=>{
     expect(summary.shippingTotal).toBe(30000);
     expect(summary.total).toBe(30400);
     expect(summary.onlyPhysical).toBe(true);
+    expect(summary.codEligible).toBe(true);
   });
 
   it('charges one fee per physical seller and disables COD for mixed baskets',()=>{
@@ -29,19 +29,21 @@ describe('summarizeCart',()=>{
     expect(summary.total).toBe(60800);
     expect(summary.hasPhysical).toBe(true);
     expect(summary.onlyPhysical).toBe(false);
+    expect(summary.codEligible).toBe(false);
   });
 
   it('allows COD for a fully physical basket and omits shipping for digital only',()=>{
-    expect(summarizeCart([line('physical-c')],catalog,30000).onlyPhysical).toBe(true);
+    expect(summarizeCart([line('physical-c')],catalog,30000).codEligible).toBe(true);
     const digital=summarizeCart([line('digital',2)],catalog,30000);
     expect(digital.onlyPhysical).toBe(false);
     expect(digital.hasPhysical).toBe(false);
+    expect(digital.codEligible).toBe(false);
     expect(digital.shippingTotal).toBe(0);
   });
 
-  it('marks stale and preview products unavailable instead of charging them',()=>{
-    const summary=summarizeCart([line('gone'),line('preview'),line('digital')],catalog,30000);
-    expect(summary.unavailableCount).toBe(2);
+  it('marks products removed from the live catalogue as unavailable',()=>{
+    const summary=summarizeCart([line('gone'),line('digital')],catalog,30000);
+    expect(summary.unavailableCount).toBe(1);
     expect(summary.lines.map(({product})=>product.id)).toEqual(['digital']);
     expect(summary.subtotal).toBe(400);
     expect(summary.onlyPhysical).toBe(false);

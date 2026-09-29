@@ -40,7 +40,7 @@ export function CheckoutForm({products,shippingFee}:{products:Product[];shipping
   return <form action={submit} className="card-panel form-grid">
     {summary.unavailableCount>0&&<div className="empty" role="status">
       <p>{t('unavailable',{count:summary.unavailableCount})}</p>
-      <button type="button" className="button secondary" onClick={()=>updateCart(cart.filter(line=>productsById.has(line.productId)&&!productsById.get(line.productId)?.preview))}>{t('removeUnavailable')}</button>
+      <button type="button" className="button secondary" onClick={()=>updateCart(cart.filter(line=>productsById.has(line.productId)))}>{t('removeUnavailable')}</button>
     </div>}
     <p className="muted">{t('serverRechecks')}</p>
     <label>{t('name')}<input className="field" name="name" required autoComplete="name"/></label>
@@ -52,8 +52,7 @@ export function CheckoutForm({products,shippingFee}:{products:Product[];shipping
     <label className="muted">{t('paymentMethod')}
       <select className="field" name="paymentMethod" defaultValue="sepay">
         <option value="sepay">{t('sepay')}</option>
-        <option value="payos">{t('payos')}</option>
-        {summary.onlyPhysical&&<option value="cod">{t('cod')}</option>}
+        {summary.codEligible&&<option value="cod">{t('cod')}</option>}
       </select>
     </label>
     <div className="product-meta"><span>{t('itemsSubtotal')}</span><strong>{formatVnd(summary.subtotal,locale)}</strong></div>

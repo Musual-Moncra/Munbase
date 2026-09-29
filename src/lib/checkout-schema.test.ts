@@ -1,7 +1,7 @@
 import {describe,expect,it} from 'vitest';
 import {checkoutSchema} from './checkout-schema';
 
-const valid={items:[{productId:'11234567-89ab-4cde-8123-456789abcdef',quantity:2}],customer:{name:'Mai Nguyen',email:'mai@example.com'},paymentMethod:'payos'};
+const valid={items:[{productId:'11234567-89ab-4cde-8123-456789abcdef',quantity:2}],customer:{name:'Mai Nguyen',email:'mai@example.com'},paymentMethod:'sepay'};
 
 describe('checkout input validation',()=>{
   it('accepts a valid itemized order without trusting any client price field',()=>{
@@ -17,5 +17,6 @@ describe('checkout input validation',()=>{
   it('requires valid customer email and an explicit supported payment method',()=>{
     expect(checkoutSchema.safeParse({...valid,customer:{name:'Mai',email:'invalid'}}).success).toBe(false);
     expect(checkoutSchema.safeParse({...valid,paymentMethod:'cash'}).success).toBe(false);
+    expect(checkoutSchema.safeParse({...valid,paymentMethod:'payos'}).success).toBe(false);
   });
 });

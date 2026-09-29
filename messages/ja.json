@@ -89,6 +89,8 @@
     "signIn": "ログイン",
     "create": "アカウントを作成",
     "google": "Googleで続行",
+    "googleDisabled": "Googleログインはまだ設定されていません。メールとパスワードを使うか、管理者にGoogle OAuthの有効化を依頼してください。",
+    "googleUnavailable": "Googleログイン設定を確認できませんでした。再試行するか、メールでログインしてください。",
     "createBuyer": "購入者アカウントを作成",
     "existing": "すでにアカウントをお持ちですか？ログイン",
     "checkEmail": "メールを確認してアカウントを認証してください。",

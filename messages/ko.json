@@ -89,6 +89,8 @@
     "signIn": "로그인",
     "create": "계정 만들기",
     "google": "Google로 계속하기",
+    "googleDisabled": "Google 로그인이 아직 설정되지 않았습니다. 이메일과 비밀번호를 사용하거나 관리자에게 Google OAuth 설정을 요청하세요.",
+    "googleUnavailable": "Google 로그인 설정을 확인할 수 없습니다. 다시 시도하거나 이메일로 로그인하세요.",
     "createBuyer": "구매자 계정 만들기",
     "existing": "이미 계정이 있나요? 로그인",
     "checkEmail": "이메일을 확인하여 계정을 인증하세요.",

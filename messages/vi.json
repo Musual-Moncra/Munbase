@@ -89,6 +89,8 @@
     "signIn": "Đăng nhập",
     "create": "Tạo tài khoản",
     "google": "Tiếp tục với Google",
+    "googleDisabled": "Đăng nhập Google chưa được cấu hình. Hãy dùng email và mật khẩu, hoặc liên hệ quản trị viên để bật Google OAuth.",
+    "googleUnavailable": "Không kiểm tra được cấu hình Google. Vui lòng thử lại hoặc đăng nhập bằng email.",
     "createBuyer": "Tạo tài khoản người mua",
     "existing": "Đã có tài khoản? Đăng nhập",
     "checkEmail": "Kiểm tra email để xác nhận tài khoản.",

@@ -89,6 +89,8 @@
     "signIn": "Sign in",
     "create": "Create account",
     "google": "Continue with Google",
+    "googleDisabled": "Google sign-in is not configured yet. Use email and password, or contact the administrator to enable Google OAuth.",
+    "googleUnavailable": "Google sign-in settings could not be checked. Try again or sign in with email.",
     "createBuyer": "Create a buyer account",
     "existing": "Already have an account? Sign in",
     "checkEmail": "Check your email to confirm your account.",

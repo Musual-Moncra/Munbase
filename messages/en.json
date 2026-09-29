@@ -180,7 +180,9 @@
     "products": "Product review",
     "orders": "Orders to monitor",
     "removeReason": "Reason for removing this listing",
-    "reasonRequired": "Enter a reason with at least 3 characters."
+    "reasonRequired": "Enter a reason with at least 3 characters.",
+    "payoutReference": "Seller payout transfer reference",
+    "referenceRequired": "Enter a reference with at least 3 characters."
   },
   "auth": {
     "eyebrow": "Munbase account",

@@ -180,7 +180,9 @@
     "products": "商品審査",
     "orders": "確認が必要な注文",
     "removeReason": "掲載停止の理由",
-    "reasonRequired": "3文字以上の理由を入力してください。"
+    "reasonRequired": "3文字以上の理由を入力してください。",
+    "payoutReference": "販売者への振込参照番号",
+    "referenceRequired": "Enter a reference with at least 3 characters."
   },
   "auth": {
     "eyebrow": "Munbase アカウント",

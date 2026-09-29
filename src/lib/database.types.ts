@@ -892,6 +892,7 @@ export type Database = {
           gross_amount: number
           id: string
           order_item_id: string
+          payout_reference: string | null
           reconciled_at: string | null
           reconciled_by: string | null
           seller_id: string
@@ -903,6 +904,7 @@ export type Database = {
           gross_amount: number
           id?: string
           order_item_id: string
+          payout_reference?: string | null
           reconciled_at?: string | null
           reconciled_by?: string | null
           seller_id: string
@@ -914,6 +916,7 @@ export type Database = {
           gross_amount?: number
           id?: string
           order_item_id?: string
+          payout_reference?: string | null
           reconciled_at?: string | null
           reconciled_by?: string | null
           seller_id?: string
@@ -1115,10 +1118,12 @@ export type Database = {
         }
         Returns: string
       }
-      admin_mark_reconciled: {
-        Args: { p_reconciliation_id: string }
-        Returns: undefined
-      }
+      admin_mark_reconciled:
+        | { Args: { p_reconciliation_id: string }; Returns: undefined }
+        | {
+            Args: { p_reconciliation_id: string; p_reference: string }
+            Returns: undefined
+          }
       admin_reissue_pending_sepay_order: {
         Args: { p_items: Json; p_order_id: string; p_reason: string }
         Returns: string

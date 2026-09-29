@@ -180,7 +180,9 @@
     "products": "商品审核",
     "orders": "待跟进订单",
     "removeReason": "下架原因",
-    "reasonRequired": "请输入至少3个字符的原因。"
+    "reasonRequired": "请输入至少3个字符的原因。",
+    "payoutReference": "卖家付款转账参考编号",
+    "referenceRequired": "Enter a reference with at least 3 characters."
   },
   "auth": {
     "eyebrow": "Munbase 账户",

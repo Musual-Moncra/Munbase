@@ -180,7 +180,9 @@
     "products": "Hàng đợi sản phẩm",
     "orders": "Đơn hàng cần theo dõi",
     "removeReason": "Lý do gỡ sản phẩm",
-    "reasonRequired": "Vui lòng nhập lý do ít nhất 3 ký tự."
+    "reasonRequired": "Vui lòng nhập lý do ít nhất 3 ký tự.",
+    "payoutReference": "Mã tham chiếu chuyển tiền cho seller",
+    "referenceRequired": "Nhập mã tham chiếu ít nhất 3 ký tự."
   },
   "auth": {
     "eyebrow": "Tài khoản Munbase",

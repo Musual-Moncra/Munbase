@@ -180,7 +180,9 @@
     "products": "상품 심사",
     "orders": "확인할 주문",
     "removeReason": "상품 삭제 사유",
-    "reasonRequired": "3자 이상의 사유를 입력하세요."
+    "reasonRequired": "3자 이상의 사유를 입력하세요.",
+    "payoutReference": "판매자 지급 이체 참조번호",
+    "referenceRequired": "Enter a reference with at least 3 characters."
   },
   "auth": {
     "eyebrow": "Munbase 계정",

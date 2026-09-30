@@ -9,17 +9,23 @@ type Category={id:string;label:string};
 type Initial=Record<string,unknown>;
 
 export function SellerApplicationForm({categories,initial,payout}:{categories:Category[];initial?:Initial|null;payout?:{bank_name:string|null;bank_account_number:string|null;bank_account_name:string|null}|null}){
-  const t=useTranslations('sellerApply');const locale=useLocale();const router=useRouter();const formRef=useRef<HTMLFormElement>(null);const [step,setStep]=useState(0);const [preview,setPreview]=useState<Record<string,string>>({});const [busy,setBusy]=useState(false);const [message,setMessage]=useState('');
+  const t=useTranslations('sellerApply');const locale=useLocale();const router=useRouter();const formRef=useRef<HTMLFormElement>(null);const [step,setStep]=useState(0);const [preview,setPreview]=useState<Record<string,string>>({});const [busy,setBusy]=useState(false);const [message,setMessage]=useState('');const [isError,setIsError]=useState(false);
   const address=(initial?.contact_address&&typeof initial.contact_address==='object'?initial.contact_address:{}) as Record<string,string>;
   const initialTypes=Array.isArray(initial?.product_types)?initial.product_types as string[]:[];
   const initialCategories=Array.isArray(initial?.product_categories)?initial.product_categories as string[]:[];
   function review(){if(!formRef.current?.reportValidity())return;const data=new FormData(formRef.current);setPreview({shop:String(data.get('shop_name')||''),contact:String(data.get('contact_name')||''),phone:String(data.get('contact_phone')||''),address:[data.get('address_line'),data.get('ward'),data.get('district'),data.get('province')].filter(Boolean).join(', '),products:(data.getAll('product_types') as string[]).map(x=>t(`type_${x}`)).join(', '),bank:String(data.get('bank_name')||''),holder:String(data.get('bank_account_name')||'')});setStep(1);}
   async function save(data:FormData){
-    setBusy(true);setMessage('');const supabase=createSupabaseBrowserClient();if(!supabase){setMessage(t('notConfigured'));setBusy(false);return;}
-    const submit=String(data.get('intent'))==='submit';const payload={shop_name:String(data.get('shop_name')||'').trim(),contact_name:String(data.get('contact_name')||'').trim(),contact_phone:String(data.get('contact_phone')||'').trim(),description:String(data.get('description')||'').trim(),website_url:String(data.get('website_url')||'').trim(),proof_url:String(data.get('proof_url')||'').trim(),product_types:data.getAll('product_types').map(String),product_categories:data.getAll('product_categories').map(String),address:{province:String(data.get('province')||'').trim(),district:String(data.get('district')||'').trim(),ward:String(data.get('ward')||'').trim(),address_line:String(data.get('address_line')||'').trim()},bank_name:String(data.get('bank_name')||'').trim(),bank_account_number:String(data.get('bank_account_number')||'').trim(),bank_account_name:String(data.get('bank_account_name')||'').trim(),terms_accepted:data.get('terms_accepted')==='on'};
-    const {error}=await supabase.rpc('save_seller_application',{p_payload:payload,p_submit:submit});setMessage(error?mapApplicationError(error.message,t):submit?t('submitted'):t('draftSaved'));setBusy(false);if(!error){router.refresh();if(submit)router.push('/account');}
+    setBusy(true);setMessage('');setIsError(false);
+    try{
+      const supabase=createSupabaseBrowserClient();if(!supabase){setMessage(t('notConfigured'));setIsError(true);return;}
+      const submit=String(data.get('intent'))==='submit';const payload={shop_name:String(data.get('shop_name')||'').trim(),contact_name:String(data.get('contact_name')||'').trim(),contact_phone:String(data.get('contact_phone')||'').trim(),description:String(data.get('description')||'').trim(),website_url:String(data.get('website_url')||'').trim(),proof_url:String(data.get('proof_url')||'').trim(),product_types:data.getAll('product_types').map(String),product_categories:data.getAll('product_categories').map(String),address:{province:String(data.get('province')||'').trim(),district:String(data.get('district')||'').trim(),ward:String(data.get('ward')||'').trim(),address_line:String(data.get('address_line')||'').trim()},bank_name:String(data.get('bank_name')||'').trim(),bank_account_number:String(data.get('bank_account_number')||'').trim(),bank_account_name:String(data.get('bank_account_name')||'').trim(),terms_accepted:data.get('terms_accepted')==='on'};
+      const {error}=await supabase.rpc('save_seller_application',{p_payload:payload,p_submit:submit});
+      if(error){setMessage(mapApplicationError(error.message,t));setIsError(true);return;}
+      setMessage(submit?t('submitted'):t('draftSaved'));router.refresh();if(submit)router.push('/account');
+    }catch{setMessage(t('saveFailed'));setIsError(true);}
+    finally{setBusy(false);}
   }
-  return <form ref={formRef} action={save} className="seller-application form-grid">
+  return <form ref={formRef} onSubmit={event=>{event.preventDefault();const data=new FormData(event.currentTarget);const submitter=(event.nativeEvent as SubmitEvent).submitter;if(submitter instanceof HTMLButtonElement&&submitter.name)data.set(submitter.name,submitter.value);void save(data);}} className="seller-application form-grid">
     <div className="application-progress" aria-label={t('progress')}><span className={step===0?'current':''}>{t('detailsStep')}</span><span className={step===1?'current':''}>{t('reviewStep')}</span></div>
     <fieldset className="application-fields form-grid" hidden={step===1}><legend>{t('contactSection')}</legend>
       <label>{t('shopName')}<input className="field" name="shop_name" required minLength={2} maxLength={100} defaultValue={String(initial?.shop_name||'')}/></label>
@@ -43,7 +49,7 @@ export function SellerApplicationForm({categories,initial,payout}:{categories:Ca
       <div className="form-actions"><button type="submit" className="button secondary" name="intent" value="draft" formNoValidate disabled={busy}>{t('saveDraft')}</button><button type="button" className="button" onClick={review}>{t('reviewApplication')}</button></div>
     </fieldset>
     {step===1&&<section className="application-review"><h2>{t('reviewTitle')}</h2><p className="muted">{t('reviewDescription')}</p>{Object.entries({shop:t('shopName'),contact:t('contactName'),phone:t('contactPhone'),address:t('businessAddress'),products:t('productTypes'),bank:t('bankName'),holder:t('bankHolder')}).map(([key,label])=><div className="product-meta review-line" key={key}><span>{label}</span><strong>{preview[key]||t('notProvided')}</strong></div>)}<div className="form-actions"><button type="button" className="button secondary" onClick={()=>setStep(0)}>{t('editDetails')}</button><button className="button" name="intent" value="submit" disabled={busy}>{busy?t('submitting'):t('sendApplication')}</button></div></section>}
-    {message&&<p className="muted" role="status">{message}</p>}
+    {message&&<p className={isError?'form-error':'form-success'} role={isError?'alert':'status'}>{message}</p>}
   </form>;
 }
 

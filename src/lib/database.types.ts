@@ -1096,6 +1096,10 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
+      seller_revenue_summary: {
+        Args: { p_from: string; p_to: string }
+        Returns: Json
+      }
       admin_adjust_pending_cod_order: {
         Args: { p_items: Json; p_order_id: string; p_reason: string }
         Returns: undefined

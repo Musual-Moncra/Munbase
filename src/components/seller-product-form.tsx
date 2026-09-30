@@ -10,38 +10,80 @@ type Product={id:string;slug:string;title:string;description:string;price:number
 type Submission={id:string;status:string;title:string;slug:string;description:string;price:number;product_type:'physical'|'digital';category_id:string|null;initial_stock:number;digital_file_path:string|null;images:string[];rejection_reason:string|null};
 
 export function SellerProductForm({categories,product,submission}:{categories:Category[];product?:Product;submission?:Submission|null}){
-  const source=submission||product;const t=useTranslations('productForm');const locale=useLocale();const router=useRouter();const formRef=useRef<HTMLFormElement>(null);
-  const [message,setMessage]=useState('');const [busy,setBusy]=useState(false);const [type,setType]=useState(source?.product_type||'physical');
+  const source=submission||product;
+  const t=useTranslations('productForm');
+  const locale=useLocale();
+  const router=useRouter();
+  const formRef=useRef<HTMLFormElement>(null);
+  const [message,setMessage]=useState('');
+  const [busy,setBusy]=useState(false);
+  const [isError,setIsError]=useState(false);
+  const [type,setType]=useState(source?.product_type||'physical');
+
   async function submit(form:FormData){
-    setBusy(true);setMessage('');const supabase=createSupabaseBrowserClient();if(!supabase){setMessage(t('notConfigured'));setBusy(false);return;}
-    const {data:{user}}=await supabase.auth.getUser();if(!user){setMessage(t('signIn'));setBusy(false);return;}
-    const title=String(form.get('title')||'').trim();const price=Number(form.get('price'));const stock=type==='physical'?Number(form.get('stock')||0):0;const intent=String(form.get('intent')||'submit');
-    if(title.length<3||title.length>120||!Number.isSafeInteger(price)||price<1||price>1_000_000_000||type==='physical'&&(!Number.isInteger(stock)||stock<0||stock>100000)){setMessage(t('invalid'));setBusy(false);return;}
-    const uploads=form.getAll('images').filter((file):file is File=>file instanceof File&&file.size>0);
-    if(uploads.length>5||uploads.some(file=>file.size>5*1024*1024||!['image/jpeg','image/png','image/webp'].includes(file.type))){setMessage(t('imageLimit'));setBusy(false);return;}
-    let digitalPath=source?.digital_file_path||null;let uploadedDigital:string|null=null;const uploadedImages:string[]=[];
+    setBusy(true);setMessage('');setIsError(false);
+    let uploadedDigital:string|null=null;
+    const uploadedImagePaths:string[]=[];
     try{
+      const supabase=createSupabaseBrowserClient();
+      if(!supabase){setMessage(t('notConfigured'));setIsError(true);return;}
+      const {data:{user},error:authError}=await supabase.auth.getUser();
+      if(authError||!user){setMessage(t('signIn'));setIsError(true);return;}
+
+      const title=String(form.get('title')||'').trim();
+      const price=Number(form.get('price'));
+      const stock=type==='physical'?Number(form.get('stock')||0):0;
+      const intent=String(form.get('intent')||'submit');
+      if(title.length<3||title.length>120||!Number.isSafeInteger(price)||price<1||price>1_000_000_000||type==='physical'&&(!Number.isInteger(stock)||stock<0||stock>100000)){
+        setMessage(t('invalid'));setIsError(true);return;
+      }
+      const uploads=form.getAll('images').filter((file):file is File=>file instanceof File&&file.size>0);
+      if(uploads.length>5||uploads.some(file=>file.size>5*1024*1024||!['image/jpeg','image/png','image/webp'].includes(file.type))){setMessage(t('imageLimit'));setIsError(true);return;}
+
+      let digitalPath=source?.digital_file_path||null;
       const digital=form.get('file');
       if(type==='digital'&&digital instanceof File&&digital.size>0){
         if(digital.size>50*1024*1024)throw new Error(t('fileTooLarge'));
-        const safeName=digital.name.replace(/[^a-zA-Z0-9._-]/g,'_');uploadedDigital=`${user.id}/${crypto.randomUUID()}-${safeName}`;
-        const {error}=await supabase.storage.from('digital-assets').upload(uploadedDigital,digital,{upsert:false});if(error)throw error;digitalPath=uploadedDigital;
+        const safeName=digital.name.replace(/[^a-zA-Z0-9._-]/g,'_');
+        uploadedDigital=`${user.id}/${crypto.randomUUID()}-${safeName}`;
+        const {error}=await supabase.storage.from('digital-assets').upload(uploadedDigital,digital,{upsert:false});
+        if(error)throw error;
+        digitalPath=uploadedDigital;
       }
       if(type==='digital'&&!digitalPath)throw new Error(t('missingFile'));
-      for(const file of uploads){const path=`${user.id}/${crypto.randomUUID()}-${file.name.replace(/[^a-zA-Z0-9._-]/g,'_')}`;const {error}=await supabase.storage.from('product-images').upload(path,file,{upsert:false,contentType:file.type});if(error)throw error;uploadedImages.push(supabase.storage.from('product-images').getPublicUrl(path).data.publicUrl);}
-      const kept=(form.getAll('keepImage').map(String));const images=[...kept,...uploadedImages];if(images.length>5)throw new Error(t('imageLimit'));
+
+      const uploadedImages:string[]=[];
+      for(const file of uploads){
+        const path=`${user.id}/${crypto.randomUUID()}-${file.name.replace(/[^a-zA-Z0-9._-]/g,'_')}`;
+        const {error}=await supabase.storage.from('product-images').upload(path,file,{upsert:false,contentType:file.type});
+        if(error)throw error;
+        uploadedImagePaths.push(path);
+        uploadedImages.push(supabase.storage.from('product-images').getPublicUrl(path).data.publicUrl);
+      }
+
+      const kept=form.getAll('keepImage').map(String);
+      const images=[...kept,...uploadedImages];
+      if(images.length>5)throw new Error(t('imageLimit'));
       const slug=String(source?.slug||`${title.toLocaleLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')}-${crypto.randomUUID().slice(0,8)}`);
       const payload={title,slug,description:String(form.get('description')||'').trim(),price,product_type:type,category_id:String(form.get('category')||'')||null,stock,digital_file_path:type==='digital'?digitalPath:null,images};
-      const {error}=await supabase.rpc('save_product_submission',{p_submission_id:submission?.id||null,p_product_id:product?.id||null,p_payload:payload,p_submit:intent==='submit'});if(error)throw error;
-      setMessage(intent==='submit'?t('submitSuccess'):t('draftSaved'));router.refresh();if(!product)formRef.current?.reset();
+      const {error}=await supabase.rpc('save_product_submission',{p_submission_id:submission?.id||null,p_product_id:product?.id||null,p_payload:payload,p_submit:intent==='submit'});
+      if(error)throw error;
+
+      setMessage(intent==='submit'?t('submitSuccess'):t('draftSaved'));
+      if(!product)formRef.current?.reset();
+      router.refresh();
     }catch(error){
-      if(uploadedDigital)await supabase.storage.from('digital-assets').remove([uploadedDigital]);
-      if(uploadedImages.length){const paths=uploadedImages.map(url=>url.split('/product-images/')[1]).filter(Boolean);if(paths.length)await supabase.storage.from('product-images').remove(paths);}
+      const supabase=createSupabaseBrowserClient();
+      if(supabase){
+        if(uploadedDigital)await supabase.storage.from('digital-assets').remove([uploadedDigital]);
+        if(uploadedImagePaths.length)await supabase.storage.from('product-images').remove(uploadedImagePaths);
+      }
       setMessage(error instanceof Error?error.message:t('saveFailed'));
-    }
-    setBusy(false);
+      setIsError(true);
+    }finally{setBusy(false);}
   }
-  return <form ref={formRef} action={submit} className="card-panel form-grid product-submission-form">
+
+  return <form ref={formRef} onSubmit={event=>{event.preventDefault();const data=new FormData(event.currentTarget);const submitter=(event.nativeEvent as SubmitEvent).submitter;if(submitter instanceof HTMLButtonElement&&submitter.name)data.set(submitter.name,submitter.value);void submit(data);}} className="card-panel form-grid product-submission-form">
     {submission?.rejection_reason&&<p className="alert-note">{t('adminReason')}: {submission.rejection_reason}</p>}
     {product&&<p className="muted">{t('reviewRequiredHint')}</p>}
     <label>{t('title')}<input className="field" name="title" required minLength={3} maxLength={120} defaultValue={source?.title}/></label>
@@ -54,6 +96,6 @@ export function SellerProductForm({categories,product,submission}:{categories:Ca
     <label>{t('images')}<input className="field" name="images" type="file" accept="image/jpeg,image/png,image/webp" multiple/></label>
     <label>{t('file')}<input className="field" name="file" type="file"/>{source?.digital_file_path&&<small className="muted">{t('fileAlreadyUploaded')}</small>}</label>
     <div className="form-actions"><button className="button secondary" name="intent" value="draft" formNoValidate disabled={busy}>{t('draft')}</button><button className="button" name="intent" value="submit" disabled={busy}>{busy?t('uploading'):t('submitForReview')}</button></div>
-    {message&&<p role="status" className="muted">{message}</p>}
+    {message&&<p role={isError?'alert':'status'} className={isError?'form-error':'form-success'}>{message}</p>}
   </form>;
 }

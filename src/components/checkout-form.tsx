@@ -42,7 +42,7 @@ export function CheckoutForm({products,shippingFee,addresses=[],initialName='',i
 
   if(!cart.length)return <div className="empty">{t('emptyCart')} <Link href="/products">{t('shop')}</Link></div>;
 
-  return <form action={submit} className="card-panel form-grid">
+  return <form onSubmit={event=>{event.preventDefault();void submit(new FormData(event.currentTarget));}} className="card-panel form-grid">
     {summary.unavailableCount>0&&<div className="empty" role="status">
       <p>{t('unavailable',{count:summary.unavailableCount})}</p>
       <button type="button" className="button secondary" onClick={()=>updateCart(cart.filter(line=>productsById.has(line.productId)))}>{t('removeUnavailable')}</button>

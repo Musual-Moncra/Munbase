@@ -1,6 +1,6 @@
 import {createHmac} from 'node:crypto';
 import {describe,expect,it} from 'vitest';
-import {parseSePayOrderCode,verifySePaySignature} from './sepay';
+import {normalizeSePayApiTransaction,parseSePayOrderCode,verifySePaySignature} from './sepay';
 
 describe('SePay webhook security',()=>{
   const secret='test-only-secret';
@@ -23,5 +23,17 @@ describe('SePay webhook security',()=>{
     expect(parseSePayOrderCode('MB1024','MB2024 transfer')).toBe(1024);
     expect(parseSePayOrderCode(null,'payment MB2024 thank you')).toBe(2024);
     expect(parseSePayOrderCode(null,'unrelated 2024')).toBe(null);
+  });
+
+  it('normalizes the SePay API v2 transaction shape and preserves the bank reference',()=>{
+    expect(normalizeSePayApiTransaction({
+      id:'11234567-89ab-4cde-8123-456789abcdef',account_number:'0123456789',
+      bank_account_id:'21234567-89ab-4cde-8123-456789abcdef',transfer_type:'in',amount_in:12000,
+      code:'MB1024',transaction_content:'MB1024 thanh toan',reference_number:'FT26069ABC',transaction_date:'2026-10-01 10:30:00',
+    })).toMatchObject({eventId:'11234567-89ab-4cde-8123-456789abcdef',transferAmount:12000,referenceCode:'FT26069ABC',transactionAt:'2026-10-01T03:30:00.000Z'});
+  });
+
+  it('rejects malformed transactions that cannot be safely deduplicated',()=>{
+    expect(()=>normalizeSePayApiTransaction({id:'not-an-id'})).toThrow();
   });
 });

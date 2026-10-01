@@ -114,7 +114,12 @@
     "district": "区 / 县",
     "ward": "坊 / 乡",
     "addressLine": "详细地址",
-    "addressNote": "配送备注"
+    "addressNote": "配送备注",
+    "refreshPayment": "检查付款",
+    "checkingPayment": "正在检查…",
+    "paymentStatusUpdated": "付款状态已更新。",
+    "paymentExpired": "此订单已过付款期限，二维码不再有效。",
+    "receivingAccount": "收款账户"
   },
   "dashboard": {
     "title": "卖家中心",
@@ -615,7 +620,29 @@
     "transferEvents": "银行转账记录",
     "unprocessed": "未处理",
     "noTransfers": "没有转账记录。",
-    "addressJson": "地址快照（JSON）"
+    "addressJson": "地址快照（JSON）",
+    "paymentExceptions": "待审核付款",
+    "findOrderCode": "订单代码 (MB…)",
+    "allocate": "分配付款",
+    "prepareRefund": "记录人工退款",
+    "pendingRefunds": "待处理退款",
+    "refundReference": "退款凭证编号",
+    "confirmRefund": "确认已退款",
+    "failedEmails": "发送失败的邮件",
+    "retryEmail": "重试邮件",
+    "reviewReason": "审核原因和凭证",
+    "amount": "金额 (VND)",
+    "paymentSaved": "付款分配已保存。",
+    "refundSaved": "退款处理已记录。",
+    "emailRetrySaved": "邮件已加入重试队列。",
+    "paymentJobHistory": "付款任务历史",
+    "checkoutAccess": "受控下单权限",
+    "checkoutEnabled": "启用创建订单",
+    "allowedBuyer": "允许的买家账户",
+    "selectBuyer": "选择买家",
+    "allowBuyer": "允许此账户下单",
+    "saveCheckoutAccess": "保存下单权限",
+    "checkoutSaved": "下单权限已保存。"
   },
   "adminProducts": {
     "title": "商品审核",
@@ -648,5 +675,23 @@
     "signIn": "需要管理员登录。",
     "blocked": "管理员已屏蔽",
     "search": "按商品名称搜索"
+  },
+  "emails": {
+    "order_created": {
+      "subject": "Munbase 已收到订单 MB{orderCode}",
+      "body": "您好，{customerName}，Munbase 已收到订单 MB{orderCode}。查看订单：{orderUrl}"
+    },
+    "payment_confirmed": {
+      "subject": "订单 MB{orderCode} 付款已确认",
+      "body": "您好，{customerName}，订单 MB{orderCode} 的付款已确认。查看订单：{orderUrl}"
+    },
+    "shipment_updated": {
+      "subject": "订单 MB{orderCode} 配送状态已更新",
+      "body": "配送状态：{shipmentStatus}。承运方：{carrier}。追踪号码：{trackingNumber}。查看订单：{orderUrl}"
+    },
+    "order_cancelled": {
+      "subject": "订单 MB{orderCode} 已取消",
+      "body": "订单 MB{orderCode} 已取消。查看详情：{orderUrl}"
+    }
   }
 }

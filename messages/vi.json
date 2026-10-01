@@ -114,7 +114,12 @@
     "district": "Quận / huyện",
     "ward": "Phường / xã",
     "addressLine": "Địa chỉ chi tiết",
-    "addressNote": "Ghi chú giao hàng"
+    "addressNote": "Ghi chú giao hàng",
+    "refreshPayment": "Kiểm tra thanh toán",
+    "checkingPayment": "Đang kiểm tra…",
+    "paymentStatusUpdated": "Trạng thái thanh toán đã được cập nhật.",
+    "paymentExpired": "Đơn hàng đã hết hạn thanh toán. QR không còn hiệu lực.",
+    "receivingAccount": "Tài khoản nhận tiền"
   },
   "dashboard": {
     "title": "Không gian người bán",
@@ -615,7 +620,29 @@
     "transferEvents": "Giao dịch ngân hàng",
     "unprocessed": "Chưa xử lý",
     "noTransfers": "Không có giao dịch ghi nhận.",
-    "addressJson": "Bản chụp địa chỉ (JSON)"
+    "addressJson": "Bản chụp địa chỉ (JSON)",
+    "paymentExceptions": "Giao dịch cần kiểm tra",
+    "findOrderCode": "Mã đơn hàng (MB…)",
+    "allocate": "Gắn khoản tiền",
+    "prepareRefund": "Ghi nhận hoàn tiền thủ công",
+    "pendingRefunds": "Khoản hoàn đang chờ",
+    "refundReference": "Mã chứng từ hoàn tiền",
+    "confirmRefund": "Xác nhận đã hoàn",
+    "failedEmails": "Email lỗi",
+    "retryEmail": "Thử gửi lại",
+    "reviewReason": "Lý do và chứng từ đối soát",
+    "amount": "Số tiền (VND)",
+    "paymentSaved": "Đã lưu kết quả đối soát khoản thanh toán.",
+    "refundSaved": "Đã ghi nhận kết quả hoàn tiền.",
+    "emailRetrySaved": "Đã đưa email vào hàng đợi gửi lại.",
+    "paymentJobHistory": "Lịch sử chạy tác vụ thanh toán",
+    "checkoutAccess": "Quyền đặt hàng có kiểm soát",
+    "checkoutEnabled": "Cho phép tạo đơn",
+    "allowedBuyer": "Tài khoản buyer được phép",
+    "selectBuyer": "Chọn buyer",
+    "allowBuyer": "Cho phép tài khoản này tạo đơn",
+    "saveCheckoutAccess": "Lưu quyền checkout",
+    "checkoutSaved": "Đã lưu cấu hình checkout."
   },
   "adminProducts": {
     "title": "Xét duyệt sản phẩm",
@@ -648,5 +675,23 @@
     "signIn": "Cần đăng nhập admin.",
     "blocked": "Đã khóa bởi admin",
     "search": "Tìm theo tên sản phẩm"
+  },
+  "emails": {
+    "order_created": {
+      "subject": "Munbase đã nhận đơn hàng MB{orderCode}",
+      "body": "Xin chào {customerName}, Munbase đã nhận đơn hàng MB{orderCode}. Xem đơn hàng: {orderUrl}"
+    },
+    "payment_confirmed": {
+      "subject": "Đã xác nhận thanh toán đơn MB{orderCode}",
+      "body": "Xin chào {customerName}, khoản thanh toán cho đơn MB{orderCode} đã được xác nhận. Xem đơn hàng: {orderUrl}"
+    },
+    "shipment_updated": {
+      "subject": "Đơn MB{orderCode} đã cập nhật giao hàng",
+      "body": "Trạng thái giao hàng: {shipmentStatus}. Đơn vị vận chuyển: {carrier}. Mã theo dõi: {trackingNumber}. Xem đơn hàng: {orderUrl}"
+    },
+    "order_cancelled": {
+      "subject": "Đơn MB{orderCode} đã bị hủy",
+      "body": "Đơn hàng MB{orderCode} đã bị hủy. Xem chi tiết: {orderUrl}"
+    }
   }
 }

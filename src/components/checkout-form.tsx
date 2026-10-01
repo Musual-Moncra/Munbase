@@ -15,6 +15,7 @@ export function CheckoutForm({products,shippingFee,addresses=[],initialName='',i
   const locale=useLocale();
   const [busy,setBusy]=useState(false);
   const [message,setMessage]=useState('');
+  const [requestKey,setRequestKey]=useState(()=>crypto.randomUUID());
   const [addressId,setAddressId]=useState(addresses.find(address=>address.is_default)?.id||'');
   const router=useRouter();
   const productsById=useMemo(()=>new Map(products.map(product=>[product.id,product])),[products]);
@@ -25,12 +26,19 @@ export function CheckoutForm({products,shippingFee,addresses=[],initialName='',i
     setMessage('');
     try{
       const selectedAddress=String(form.get('addressId')||'');
-      const address=selectedAddress?undefined:{recipient_name:form.get('recipient_name'),phone:form.get('phone'),province:form.get('province'),district:form.get('district'),ward:form.get('ward'),address_line:form.get('address_line'),note:form.get('note')};
-      const response=await fetch('/api/orders',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({items:summary.lines.map(({line})=>line),customer:{name:form.get('name'),email:form.get('email'),phone:form.get('phone'),addressId:selectedAddress||undefined,address},paymentMethod:form.get('paymentMethod')})});
+      const phone=String(form.get('phone')||'').trim();
+      const customer:Record<string,unknown>={name:form.get('name'),email:form.get('email')};
+      if(phone)customer.phone=phone;
+      if(summary.hasPhysical){
+        if(selectedAddress){customer.addressId=selectedAddress;}
+        else customer.address={recipient_name:form.get('recipient_name'),phone,province:form.get('province'),district:form.get('district'),ward:form.get('ward'),address_line:form.get('address_line'),note:form.get('note')||undefined};
+      }
+      const response=await fetch('/api/orders',{method:'POST',headers:{'content-type':'application/json'},body:JSON.stringify({requestKey,locale,items:summary.lines.map(({line})=>line),customer,paymentMethod:form.get('paymentMethod')})});
       const result=await response.json() as {error?:string;orderId?:string;checkoutUrl?:string};
       if(!response.ok)throw new Error(result.error||'Unable to create order');
       localStorage.removeItem('munbase-cart');
       window.dispatchEvent(new Event('munbase-cart-change'));
+      setRequestKey(crypto.randomUUID());
       if(result.checkoutUrl){window.location.assign(result.checkoutUrl);return;}
       router.push(`/orders/${result.orderId}`);
     }catch(error){

@@ -1,11 +1,15 @@
 import {describe,expect,it} from 'vitest';
 import {checkoutSchema} from './checkout-schema';
 
-const valid={items:[{productId:'11234567-89ab-4cde-8123-456789abcdef',quantity:2}],customer:{name:'Mai Nguyen',email:'mai@example.com'},paymentMethod:'sepay'};
+const valid={requestKey:'21234567-89ab-4cde-8123-456789abcdef',locale:'vi' as const,items:[{productId:'11234567-89ab-4cde-8123-456789abcdef',quantity:2}],customer:{name:'Mai Nguyen',email:'mai@example.com'},paymentMethod:'sepay'};
 
 describe('checkout input validation',()=>{
   it('accepts a valid itemized order without trusting any client price field',()=>{
     expect(checkoutSchema.safeParse(valid).success).toBe(true);
+  });
+  it('accepts digital orders without nullable shipping fields',()=>{
+    expect(checkoutSchema.safeParse(valid).success).toBe(true);
+    expect(checkoutSchema.safeParse({...valid,customer:{...valid.customer,phone:null,address:null}}).success).toBe(false);
   });
   it('rejects malformed product ids and nonpositive quantities',()=>{
     expect(checkoutSchema.safeParse({...valid,items:[{productId:'p-1',quantity:1}]}).success).toBe(false);

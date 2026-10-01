@@ -82,6 +82,54 @@ export type Database = {
         }
         Relationships: []
       }
+      customer_email_outbox: {
+        Row: {
+          attempt_count: number
+          claimed_at: string | null
+          created_at: string
+          event_key: string
+          id: string
+          last_error: string | null
+          locale: string
+          next_attempt_at: string
+          payload: Json
+          recipient: string
+          sent_at: string | null
+          status: string
+          template: string
+        }
+        Insert: {
+          attempt_count?: number
+          claimed_at?: string | null
+          created_at?: string
+          event_key: string
+          id?: string
+          last_error?: string | null
+          locale?: string
+          next_attempt_at?: string
+          payload?: Json
+          recipient: string
+          sent_at?: string | null
+          status?: string
+          template: string
+        }
+        Update: {
+          attempt_count?: number
+          claimed_at?: string | null
+          created_at?: string
+          event_key?: string
+          id?: string
+          last_error?: string | null
+          locale?: string
+          next_attempt_at?: string
+          payload?: Json
+          recipient?: string
+          sent_at?: string | null
+          status?: string
+          template?: string
+        }
+        Relationships: []
+      }
       digital_entitlements: {
         Row: {
           buyer_id: string
@@ -133,16 +181,19 @@ export type Database = {
       }
       marketplace_settings: {
         Row: {
+          checkout_enabled: boolean
           id: boolean
           physical_seller_shipping_fee: number
           updated_at: string
         }
         Insert: {
+          checkout_enabled?: boolean
           id?: boolean
           physical_seller_shipping_fee?: number
           updated_at?: string
         }
         Update: {
+          checkout_enabled?: boolean
           id?: boolean
           physical_seller_shipping_fee?: number
           updated_at?: string
@@ -294,6 +345,7 @@ export type Database = {
         Row: {
           buyer_id: string
           cancelled_at: string | null
+          client_request_key: string | null
           cod_remittance_reference: string | null
           cod_remitted_at: string | null
           created_at: string
@@ -302,12 +354,14 @@ export type Database = {
           customer_phone: string | null
           expires_at: string | null
           id: string
+          locale: string
           order_code: number
           paid_at: string | null
           payment_method: Database["public"]["Enums"]["order_payment_method"]
           payment_status: Database["public"]["Enums"]["payment_state"]
           payos_order_code: number | null
           payos_payment_link_id: string | null
+          request_fingerprint: string | null
           shipping_address: Json | null
           shipping_total: number
           subtotal: number
@@ -317,6 +371,7 @@ export type Database = {
         Insert: {
           buyer_id: string
           cancelled_at?: string | null
+          client_request_key?: string | null
           cod_remittance_reference?: string | null
           cod_remitted_at?: string | null
           created_at?: string
@@ -325,12 +380,14 @@ export type Database = {
           customer_phone?: string | null
           expires_at?: string | null
           id?: string
+          locale?: string
           order_code?: never
           paid_at?: string | null
           payment_method: Database["public"]["Enums"]["order_payment_method"]
           payment_status?: Database["public"]["Enums"]["payment_state"]
           payos_order_code?: number | null
           payos_payment_link_id?: string | null
+          request_fingerprint?: string | null
           shipping_address?: Json | null
           shipping_total?: number
           subtotal: number
@@ -340,6 +397,7 @@ export type Database = {
         Update: {
           buyer_id?: string
           cancelled_at?: string | null
+          client_request_key?: string | null
           cod_remittance_reference?: string | null
           cod_remitted_at?: string | null
           created_at?: string
@@ -348,12 +406,14 @@ export type Database = {
           customer_phone?: string | null
           expires_at?: string | null
           id?: string
+          locale?: string
           order_code?: never
           paid_at?: string | null
           payment_method?: Database["public"]["Enums"]["order_payment_method"]
           payment_status?: Database["public"]["Enums"]["payment_state"]
           payos_order_code?: number | null
           payos_payment_link_id?: string | null
+          request_fingerprint?: string | null
           shipping_address?: Json | null
           shipping_total?: number
           subtotal?: number
@@ -370,10 +430,64 @@ export type Database = {
           },
         ]
       }
-      payment_events: {
+      payment_allocations: {
         Row: {
           amount: number
           created_at: string
+          created_by: string | null
+          id: string
+          order_id: string
+          payment_event_id: string
+          request_key: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          order_id: string
+          payment_event_id: string
+          request_key: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          created_by?: string | null
+          id?: string
+          order_id?: string
+          payment_event_id?: string
+          request_key?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payment_allocations_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "payment_allocations_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "payment_allocations_payment_event_id_fkey"
+            columns: ["payment_event_id"]
+            isOneToOne: false
+            referencedRelation: "payment_events"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      payment_events: {
+        Row: {
+          amount: number
+          bank_reference: string | null
+          created_at: string
+          environment: string
           id: string
           order_code: number | null
           order_id: string | null
@@ -381,10 +495,18 @@ export type Database = {
           processed_at: string | null
           provider: string
           provider_event_id: string
+          review_note: string | null
+          review_status: string
+          reviewed_at: string | null
+          reviewed_by: string | null
+          source: string
+          transaction_at: string | null
         }
         Insert: {
           amount: number
+          bank_reference?: string | null
           created_at?: string
+          environment?: string
           id?: string
           order_code?: number | null
           order_id?: string | null
@@ -392,10 +514,18 @@ export type Database = {
           processed_at?: string | null
           provider: string
           provider_event_id: string
+          review_note?: string | null
+          review_status?: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          source?: string
+          transaction_at?: string | null
         }
         Update: {
           amount?: number
+          bank_reference?: string | null
           created_at?: string
+          environment?: string
           id?: string
           order_code?: number | null
           order_id?: string | null
@@ -403,6 +533,12 @@ export type Database = {
           processed_at?: string | null
           provider?: string
           provider_event_id?: string
+          review_note?: string | null
+          review_status?: string
+          reviewed_at?: string | null
+          reviewed_by?: string | null
+          source?: string
+          transaction_at?: string | null
         }
         Relationships: [
           {
@@ -410,6 +546,126 @@ export type Database = {
             columns: ["order_id"]
             isOneToOne: false
             referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "payment_events_reviewed_by_fkey"
+            columns: ["reviewed_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      payment_job_runs: {
+        Row: {
+          checkpoint_id: string | null
+          completed_at: string | null
+          environment: string | null
+          error_message: string | null
+          id: string
+          job: string
+          processed_count: number
+          started_at: string
+          status: string
+        }
+        Insert: {
+          checkpoint_id?: string | null
+          completed_at?: string | null
+          environment?: string | null
+          error_message?: string | null
+          id?: string
+          job: string
+          processed_count?: number
+          started_at?: string
+          status: string
+        }
+        Update: {
+          checkpoint_id?: string | null
+          completed_at?: string | null
+          environment?: string | null
+          error_message?: string | null
+          id?: string
+          job?: string
+          processed_count?: number
+          started_at?: string
+          status?: string
+        }
+        Relationships: []
+      }
+      payment_refunds: {
+        Row: {
+          amount: number
+          created_at: string
+          created_by: string
+          evidence_reference: string | null
+          id: string
+          order_id: string | null
+          payment_event_id: string
+          reason: string
+          refund_reference: string | null
+          refunded_at: string | null
+          refunded_by: string | null
+          request_key: string
+          status: string
+        }
+        Insert: {
+          amount: number
+          created_at?: string
+          created_by: string
+          evidence_reference?: string | null
+          id?: string
+          order_id?: string | null
+          payment_event_id: string
+          reason: string
+          refund_reference?: string | null
+          refunded_at?: string | null
+          refunded_by?: string | null
+          request_key: string
+          status?: string
+        }
+        Update: {
+          amount?: number
+          created_at?: string
+          created_by?: string
+          evidence_reference?: string | null
+          id?: string
+          order_id?: string | null
+          payment_event_id?: string
+          reason?: string
+          refund_reference?: string | null
+          refunded_at?: string | null
+          refunded_by?: string | null
+          request_key?: string
+          status?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "payment_refunds_created_by_fkey"
+            columns: ["created_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "payment_refunds_order_id_fkey"
+            columns: ["order_id"]
+            isOneToOne: false
+            referencedRelation: "orders"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "payment_refunds_payment_event_id_fkey"
+            columns: ["payment_event_id"]
+            isOneToOne: false
+            referencedRelation: "payment_events"
+            referencedColumns: ["id"]
+          },
+          {
+            foreignKeyName: "payment_refunds_refunded_by_fkey"
+            columns: ["refunded_by"]
+            isOneToOne: false
+            referencedRelation: "profiles"
             referencedColumns: ["id"]
           },
         ]
@@ -1096,16 +1352,27 @@ export type Database = {
       [_ in never]: never
     }
     Functions: {
-      seller_revenue_summary: {
-        Args: { p_from: string; p_to: string }
-        Returns: Json
-      }
       admin_adjust_pending_cod_order: {
         Args: { p_items: Json; p_order_id: string; p_reason: string }
         Returns: undefined
       }
+      admin_allocate_payment: {
+        Args: {
+          p_amount: number
+          p_event_id: string
+          p_evidence: string
+          p_order_id: string
+          p_reason: string
+          p_request_key: string
+        }
+        Returns: undefined
+      }
       admin_cancel_unpaid_order: {
         Args: { p_order_id: string; p_reason: string }
+        Returns: undefined
+      }
+      admin_complete_payment_refund: {
+        Args: { p_reference: string; p_refund_id: string }
         Returns: undefined
       }
       admin_confirm_cod_remittance: {
@@ -1122,12 +1389,24 @@ export type Database = {
         }
         Returns: string
       }
+      admin_get_checkout_access: { Args: never; Returns: Json }
       admin_mark_reconciled:
         | { Args: { p_reconciliation_id: string }; Returns: undefined }
         | {
             Args: { p_reconciliation_id: string; p_reference: string }
             Returns: undefined
           }
+      admin_record_payment_refund: {
+        Args: {
+          p_amount: number
+          p_event_id: string
+          p_evidence: string
+          p_order_id: string
+          p_reason: string
+          p_request_key: string
+        }
+        Returns: string
+      }
       admin_reissue_pending_sepay_order: {
         Args: { p_items: Json; p_order_id: string; p_reason: string }
         Returns: string
@@ -1136,6 +1415,7 @@ export type Database = {
         Args: { p_product_id: string; p_reason: string }
         Returns: undefined
       }
+      admin_retry_customer_email: { Args: { p_id: string }; Returns: undefined }
       admin_review_product_submission: {
         Args: { p_approve: boolean; p_reason: string; p_submission_id: string }
         Returns: string
@@ -1153,6 +1433,15 @@ export type Database = {
             }
             Returns: undefined
           }
+      admin_set_checkout_access: {
+        Args: {
+          p_allowed?: boolean
+          p_buyer_id?: string
+          p_enabled: boolean
+          p_reason?: string
+        }
+        Returns: undefined
+      }
       admin_set_shipment_status: {
         Args: {
           p_carrier: string
@@ -1176,7 +1465,32 @@ export type Database = {
         }
         Returns: undefined
       }
+      begin_sepay_sync: { Args: { p_environment: string }; Returns: Json }
       cancel_cod_order: { Args: { p_order_id: string }; Returns: undefined }
+      claim_customer_emails: {
+        Args: { p_limit?: number }
+        Returns: {
+          attempt_count: number
+          claimed_at: string | null
+          created_at: string
+          event_key: string
+          id: string
+          last_error: string | null
+          locale: string
+          next_attempt_at: string
+          payload: Json
+          recipient: string
+          sent_at: string | null
+          status: string
+          template: string
+        }[]
+        SetofOptions: {
+          from: "*"
+          to: "customer_email_outbox"
+          isOneToOne: false
+          isSetofReturn: true
+        }
+      }
       confirm_payos_payment: {
         Args: {
           p_amount: number
@@ -1199,12 +1513,43 @@ export type Database = {
         Args: {
           p_customer: Json
           p_items: Json
+          p_locale?: string
           p_payment_method: Database["public"]["Enums"]["order_payment_method"]
+          p_request_key?: string
         }
         Returns: string
       }
       expire_unpaid_orders: { Args: never; Returns: number }
+      finish_customer_email: {
+        Args: { p_error?: string; p_id: string }
+        Returns: undefined
+      }
+      finish_sepay_sync: {
+        Args: {
+          p_checkpoint_id?: string
+          p_environment: string
+          p_error?: string
+          p_lease_token: string
+        }
+        Returns: boolean
+      }
       is_order_paid: { Args: { p_order_id: string }; Returns: boolean }
+      record_sepay_transaction: {
+        Args: {
+          p_account_number: string
+          p_amount: number
+          p_bank_reference: string
+          p_code: string
+          p_content: string
+          p_environment: string
+          p_event_id: string
+          p_expected_account: string
+          p_payload: Json
+          p_source: string
+          p_transaction_at: string
+        }
+        Returns: Json
+      }
       save_product_submission: {
         Args: {
           p_payload: Json
@@ -1217,6 +1562,10 @@ export type Database = {
       save_seller_application: {
         Args: { p_payload: Json; p_submit?: boolean }
         Returns: string
+      }
+      seller_revenue_summary: {
+        Args: { p_from: string; p_to: string }
+        Returns: Json
       }
       seller_set_product_stock: {
         Args: { p_product_id: string; p_stock: number }

@@ -114,7 +114,12 @@
     "district": "区 / 郡",
     "ward": "町 / 村",
     "addressLine": "詳細住所",
-    "addressNote": "配送メモ"
+    "addressNote": "配送メモ",
+    "refreshPayment": "支払いを確認",
+    "checkingPayment": "確認中…",
+    "paymentStatusUpdated": "支払い状況が更新されました。",
+    "paymentExpired": "この注文の支払期限が切れました。QRコードは無効です。",
+    "receivingAccount": "振込先口座"
   },
   "dashboard": {
     "title": "販売者スペース",
@@ -615,7 +620,29 @@
     "transferEvents": "銀行振込履歴",
     "unprocessed": "未処理",
     "noTransfers": "振込履歴はありません。",
-    "addressJson": "住所スナップショット（JSON）"
+    "addressJson": "住所スナップショット（JSON）",
+    "paymentExceptions": "確認が必要な入金",
+    "findOrderCode": "注文コード (MB…)",
+    "allocate": "入金を割り当て",
+    "prepareRefund": "手動返金を記録",
+    "pendingRefunds": "保留中の返金",
+    "refundReference": "返金証憑番号",
+    "confirmRefund": "返金済みを確認",
+    "failedEmails": "送信失敗メール",
+    "retryEmail": "メールを再試行",
+    "reviewReason": "確認理由と証憑",
+    "amount": "金額 (VND)",
+    "paymentSaved": "入金の割り当てを保存しました。",
+    "refundSaved": "返金処理を記録しました。",
+    "emailRetrySaved": "メールを再試行キューに追加しました。",
+    "paymentJobHistory": "決済ジョブ履歴",
+    "checkoutAccess": "注文アクセス制御",
+    "checkoutEnabled": "注文作成を有効化",
+    "allowedBuyer": "許可する購入者アカウント",
+    "selectBuyer": "購入者を選択",
+    "allowBuyer": "このアカウントの注文を許可",
+    "saveCheckoutAccess": "注文アクセスを保存",
+    "checkoutSaved": "注文アクセスを保存しました。"
   },
   "adminProducts": {
     "title": "商品審査",
@@ -648,5 +675,23 @@
     "signIn": "管理者ログインが必要です。",
     "blocked": "管理者により停止",
     "search": "商品名で検索"
+  },
+  "emails": {
+    "order_created": {
+      "subject": "Munbaseが注文MB{orderCode}を受け付けました",
+      "body": "{customerName}様、注文MB{orderCode}を受け付けました。注文を見る: {orderUrl}"
+    },
+    "payment_confirmed": {
+      "subject": "注文MB{orderCode}の支払いを確認しました",
+      "body": "{customerName}様、注文MB{orderCode}の支払いを確認しました。注文を見る: {orderUrl}"
+    },
+    "shipment_updated": {
+      "subject": "注文MB{orderCode}の配送状況が更新されました",
+      "body": "配送状況: {shipmentStatus}。配送業者: {carrier}。追跡番号: {trackingNumber}。注文を見る: {orderUrl}"
+    },
+    "order_cancelled": {
+      "subject": "注文MB{orderCode}はキャンセルされました",
+      "body": "注文MB{orderCode}はキャンセルされました。詳細を見る: {orderUrl}"
+    }
   }
 }

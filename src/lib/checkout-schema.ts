@@ -1,6 +1,8 @@
 import {z} from 'zod';
 
 export const checkoutSchema=z.object({
+  requestKey:z.string().uuid(),
+  locale:z.enum(['vi','en','ko','zh','ja']),
   items:z.array(z.object({productId:z.string().uuid(),quantity:z.number().int().min(1).max(99)})).min(1).max(50).superRefine((items,context)=>{
     const ids=new Set<string>();
     items.forEach((item,index)=>{if(ids.has(item.productId))context.addIssue({code:'custom',path:[index,'productId'],message:'Duplicate products must be merged.'});ids.add(item.productId);});

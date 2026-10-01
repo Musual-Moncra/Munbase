@@ -114,7 +114,12 @@
     "district": "구 / 군",
     "ward": "동 / 읍 / 면",
     "addressLine": "상세 주소",
-    "addressNote": "배송 메모"
+    "addressNote": "배송 메모",
+    "refreshPayment": "결제 확인",
+    "checkingPayment": "확인 중…",
+    "paymentStatusUpdated": "결제 상태가 업데이트되었습니다.",
+    "paymentExpired": "주문 결제 기한이 만료되었습니다. QR 코드는 더 이상 유효하지 않습니다.",
+    "receivingAccount": "받는 계좌"
   },
   "dashboard": {
     "title": "판매자 공간",
@@ -615,7 +620,29 @@
     "transferEvents": "은행 이체 기록",
     "unprocessed": "미처리",
     "noTransfers": "이체 기록이 없습니다.",
-    "addressJson": "주소 스냅샷 (JSON)"
+    "addressJson": "주소 스냅샷 (JSON)",
+    "paymentExceptions": "검토가 필요한 결제",
+    "findOrderCode": "주문 코드 (MB…)",
+    "allocate": "결제 배정",
+    "prepareRefund": "수동 환불 기록",
+    "pendingRefunds": "대기 중인 환불",
+    "refundReference": "환불 증빙 참조",
+    "confirmRefund": "환불 완료 확인",
+    "failedEmails": "실패한 이메일",
+    "retryEmail": "이메일 재시도",
+    "reviewReason": "검토 사유 및 증빙",
+    "amount": "금액 (VND)",
+    "paymentSaved": "결제 배정을 저장했습니다.",
+    "refundSaved": "환불 처리를 기록했습니다.",
+    "emailRetrySaved": "이메일을 재시도 대기열에 추가했습니다.",
+    "paymentJobHistory": "결제 작업 기록",
+    "checkoutAccess": "제한된 주문 권한",
+    "checkoutEnabled": "주문 생성 허용",
+    "allowedBuyer": "허용된 구매자 계정",
+    "selectBuyer": "구매자 선택",
+    "allowBuyer": "이 계정의 주문 허용",
+    "saveCheckoutAccess": "주문 권한 저장",
+    "checkoutSaved": "주문 권한을 저장했습니다."
   },
   "adminProducts": {
     "title": "상품 검토",
@@ -648,5 +675,23 @@
     "signIn": "관리자 로그인이 필요합니다.",
     "blocked": "관리자 차단",
     "search": "상품명 검색"
+  },
+  "emails": {
+    "order_created": {
+      "subject": "Munbase 주문 MB{orderCode} 접수",
+      "body": "{customerName}님, 주문 MB{orderCode}을 접수했습니다. 주문 보기: {orderUrl}"
+    },
+    "payment_confirmed": {
+      "subject": "MB{orderCode} 결제가 확인되었습니다",
+      "body": "{customerName}님, 주문 MB{orderCode}의 결제가 확인되었습니다. 주문 보기: {orderUrl}"
+    },
+    "shipment_updated": {
+      "subject": "MB{orderCode} 배송 정보 업데이트",
+      "body": "배송 상태: {shipmentStatus}. 배송사: {carrier}. 운송장 번호: {trackingNumber}. 주문 보기: {orderUrl}"
+    },
+    "order_cancelled": {
+      "subject": "MB{orderCode} 주문이 취소되었습니다",
+      "body": "주문 MB{orderCode}이 취소되었습니다. 자세히 보기: {orderUrl}"
+    }
   }
 }

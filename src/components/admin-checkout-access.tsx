@@ -1,0 +1,14 @@
+'use client';
+
+import {useEffect,useState} from 'react';
+import {useRouter} from '@/i18n/navigation';
+import {useTranslations} from 'next-intl';
+import {createSupabaseBrowserClient} from '@/lib/supabase/browser';
+
+type Buyer={id:string;name:string|null;email:string;allowed:boolean};
+export function AdminCheckoutAccess(){
+  const t=useTranslations('adminOrders');const router=useRouter();const [buyers,setBuyers]=useState<Buyer[]>([]);const [enabled,setEnabled]=useState(false);const [buyerId,setBuyerId]=useState('');const [allowed,setAllowed]=useState(true);const [reason,setReason]=useState('');const [message,setMessage]=useState('');const [busy,setBusy]=useState(false);
+  useEffect(()=>{let active=true;const supabase=createSupabaseBrowserClient();if(!supabase)return;void supabase.rpc('admin_get_checkout_access').then(({data,error})=>{if(!active)return;if(error){setMessage(error.message);return;}const result=data as {enabled?:boolean;buyers?:Buyer[]}|null;const rows=result?.buyers||[];setEnabled(Boolean(result?.enabled));setBuyers(rows);setBuyerId(rows[0]?.id||'');setAllowed(Boolean(rows[0]?.allowed));});return()=>{active=false;};},[]);
+  async function save(){if(reason.trim().length<3){setMessage(t('reasonRequired'));return;}const supabase=createSupabaseBrowserClient();if(!supabase){setMessage(t('notConfigured'));return;}setBusy(true);setMessage('');try{const {error}=await supabase.rpc('admin_set_checkout_access',{p_enabled:enabled,p_buyer_id:buyerId||null,p_allowed:allowed,p_reason:reason.trim()} as never);setMessage(error?error.message:t('checkoutSaved'));if(!error){const buyer=buyers.find(row=>row.id===buyerId);if(buyer)setBuyers(rows=>rows.map(row=>row.id===buyerId?{...row,allowed}:row));router.refresh();}}finally{setBusy(false);}}
+  return <section className="card-panel form-grid"><h2>{t('checkoutAccess')}</h2><label className="inline-form"><input type="checkbox" checked={enabled} onChange={event=>setEnabled(event.target.checked)}/>{t('checkoutEnabled')}</label><label>{t('allowedBuyer')}<select className="field" value={buyerId} onChange={event=>{setBuyerId(event.target.value);const buyer=buyers.find(row=>row.id===event.target.value);setAllowed(Boolean(buyer?.allowed));}}><option value="">{t('selectBuyer')}</option>{buyers.map(buyer=><option value={buyer.id} key={buyer.id}>{buyer.name||buyer.email} · {buyer.allowed?'allowed':'blocked'}</option>)}</select></label>{buyerId&&<label className="inline-form"><input type="checkbox" checked={allowed} onChange={event=>setAllowed(event.target.checked)}/>{t('allowBuyer')}</label>}<label>{t('reason')}<input className="field" minLength={3} value={reason} onChange={event=>setReason(event.target.value)}/></label><button className="button" disabled={busy} onClick={()=>void save()}>{busy?'…':t('saveCheckoutAccess')}</button>{message&&<p role="status" className="muted">{message}</p>}</section>;
+}

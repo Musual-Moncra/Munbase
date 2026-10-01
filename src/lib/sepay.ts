@@ -1,4 +1,5 @@
 import {createHmac, timingSafeEqual} from 'node:crypto';
+import {z} from 'zod';
 
 const MAX_CLOCK_SKEW_SECONDS = 300;
 
@@ -37,4 +38,36 @@ export function parseSePayOrderCode(code: string | null, content: string): numbe
     }
   }
   return null;
+}
+
+const apiTransactionSchema=z.object({
+  id:z.string().uuid(),
+  account_number:z.string().min(1).max(40),
+  bank_account_id:z.string().uuid(),
+  transfer_type:z.enum(['in','out']),
+  amount_in:z.number().int().nonnegative(),
+  code:z.string().max(80).nullable().optional(),
+  transaction_content:z.string().max(1000).nullable().optional(),
+  reference_number:z.string().max(120).nullable().optional(),
+  transaction_date:z.string().min(1).max(50),
+});
+
+export function normalizeSePayApiTransaction(input:unknown){
+  const transaction=apiTransactionSchema.parse(input);
+  const transactionDate=transaction.transaction_date.includes('T')
+    ?transaction.transaction_date
+    :`${transaction.transaction_date.replace(' ','T')}+07:00`;
+  const parsedDate=new Date(transactionDate);
+  if(Number.isNaN(parsedDate.getTime()))throw new Error('invalid_sepay_transaction_date');
+  return {
+    eventId:transaction.id,
+    accountNumber:transaction.account_number,
+    bankAccountId:transaction.bank_account_id,
+    transferType:transaction.transfer_type,
+    transferAmount:transaction.amount_in,
+    code:transaction.code??null,
+    content:transaction.transaction_content??'',
+    referenceCode:transaction.reference_number??null,
+    transactionAt:parsedDate.toISOString(),
+  };
 }

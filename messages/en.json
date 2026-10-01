@@ -114,7 +114,12 @@
     "district": "District",
     "ward": "Ward",
     "addressLine": "Street address",
-    "addressNote": "Delivery note"
+    "addressNote": "Delivery note",
+    "refreshPayment": "Check payment",
+    "checkingPayment": "Checking…",
+    "paymentStatusUpdated": "Payment status has been updated.",
+    "paymentExpired": "This order has expired. The QR code is no longer valid.",
+    "receivingAccount": "Receiving account"
   },
   "dashboard": {
     "title": "Seller space",
@@ -615,7 +620,29 @@
     "transferEvents": "Bank transfer events",
     "unprocessed": "Unprocessed",
     "noTransfers": "No transfer events recorded.",
-    "addressJson": "Address snapshot (JSON)"
+    "addressJson": "Address snapshot (JSON)",
+    "paymentExceptions": "Payments needing review",
+    "findOrderCode": "Order code (MB…)",
+    "allocate": "Allocate payment",
+    "prepareRefund": "Record manual refund",
+    "pendingRefunds": "Pending refunds",
+    "refundReference": "Refund evidence reference",
+    "confirmRefund": "Confirm refunded",
+    "failedEmails": "Failed emails",
+    "retryEmail": "Retry email",
+    "reviewReason": "Review reason and evidence",
+    "amount": "Amount (VND)",
+    "paymentSaved": "Payment allocation saved.",
+    "refundSaved": "Refund action recorded.",
+    "emailRetrySaved": "Email added to the retry queue.",
+    "paymentJobHistory": "Payment job history",
+    "checkoutAccess": "Controlled checkout access",
+    "checkoutEnabled": "Enable order creation",
+    "allowedBuyer": "Allowed buyer account",
+    "selectBuyer": "Select a buyer",
+    "allowBuyer": "Allow this account to place orders",
+    "saveCheckoutAccess": "Save checkout access",
+    "checkoutSaved": "Checkout access saved."
   },
   "adminProducts": {
     "title": "Product review",
@@ -648,5 +675,23 @@
     "signIn": "Admin sign-in required.",
     "blocked": "Blocked by admin",
     "search": "Search product title"
+  },
+  "emails": {
+    "order_created": {
+      "subject": "Munbase received order MB{orderCode}",
+      "body": "Hello {customerName}, Munbase received order MB{orderCode}. View your order: {orderUrl}"
+    },
+    "payment_confirmed": {
+      "subject": "Payment confirmed for MB{orderCode}",
+      "body": "Hello {customerName}, payment for order MB{orderCode} is confirmed. View your order: {orderUrl}"
+    },
+    "shipment_updated": {
+      "subject": "Shipping updated for MB{orderCode}",
+      "body": "Shipping status: {shipmentStatus}. Carrier: {carrier}. Tracking number: {trackingNumber}. View your order: {orderUrl}"
+    },
+    "order_cancelled": {
+      "subject": "Order MB{orderCode} was cancelled",
+      "body": "Order MB{orderCode} was cancelled. View details: {orderUrl}"
+    }
   }
 }
